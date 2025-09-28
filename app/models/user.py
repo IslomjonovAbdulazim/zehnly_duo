@@ -16,7 +16,6 @@ class User(Base):
     
     # Relationships
     course_progress = relationship("UserCourseProgress", back_populates="user")
-    chapter_progress = relationship("UserChapterProgress", back_populates="user")
     lesson_progress = relationship("UserLessonProgress", back_populates="user")
     word_progress = relationship("UserWordProgress", back_populates="user")
 
