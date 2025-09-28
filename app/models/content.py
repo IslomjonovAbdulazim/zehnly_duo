@@ -1,11 +1,9 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, Enum
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, Enum, Index, UniqueConstraint
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum as PyEnum
-
-Base = declarative_base()
+from ..database import Base
 
 
 class LessonType(PyEnum):
@@ -30,11 +28,16 @@ class Chapter(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
-    course_id = Column(Integer, ForeignKey("courses.id"))
+    course_id = Column(Integer, ForeignKey("courses.id", ondelete="CASCADE"), index=True)
     order = Column(Integer, nullable=False)
     
     course = relationship("Course", back_populates="chapters")
     lessons = relationship("Lesson", back_populates="chapter")
+    
+    __table_args__ = (
+        UniqueConstraint('course_id', 'order', name='unique_chapter_order'),
+        Index('idx_course_order', 'course_id', 'order'),
+    )
 
 
 class Lesson(Base):
@@ -42,12 +45,19 @@ class Lesson(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
-    chapter_id = Column(Integer, ForeignKey("chapters.id"))
+    chapter_id = Column(Integer, ForeignKey("chapters.id", ondelete="CASCADE"), index=True)
     order = Column(Integer, nullable=False)
     content = Column(Text, nullable=True)
-    lesson_type = Column(Enum(LessonType), nullable=False, default=LessonType.WORD)
+    lesson_type = Column(Enum(LessonType), nullable=False, default=LessonType.WORD, index=True)
     
     chapter = relationship("Chapter", back_populates="lessons")
+    words = relationship("Word", back_populates="lesson")
+    stories = relationship("Story", back_populates="lesson")
+    
+    __table_args__ = (
+        UniqueConstraint('chapter_id', 'order', name='unique_lesson_order'),
+        Index('idx_chapter_order', 'chapter_id', 'order'),
+    )
 
 
 

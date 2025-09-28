@@ -1,9 +1,8 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 from pydantic import BaseModel
 from typing import Optional
-
-Base = declarative_base()
+from ..database import Base
 
 
 class User(Base):
@@ -14,6 +13,12 @@ class User(Base):
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
     phone_number = Column(String, nullable=True)
+    
+    # Relationships
+    course_progress = relationship("UserCourseProgress", back_populates="user")
+    chapter_progress = relationship("UserChapterProgress", back_populates="user")
+    lesson_progress = relationship("UserLessonProgress", back_populates="user")
+    word_progress = relationship("UserWordProgress", back_populates="user")
 
 
 class UserCreate(BaseModel):
