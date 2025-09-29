@@ -1,13 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .database import engine, Base
+from fastapi.staticfiles import StaticFiles
 from .api import admin, students
 from .config import settings
-
-# TODO: REMOVE IN PRODUCTION - This drops and recreates all tables on startup
-# This is only for development. In production, use proper migrations.
-Base.metadata.drop_all(bind=engine)
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
@@ -19,6 +14,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files
+app.mount("/logos", StaticFiles(directory=f"{settings.STORAGE_PATH}/logos"), name="logos")
+app.mount("/audio", StaticFiles(directory=f"{settings.STORAGE_PATH}/audio"), name="audio")
+app.mount("/images", StaticFiles(directory=f"{settings.STORAGE_PATH}/images"), name="images")
 
 # Include routers
 app.include_router(admin.router)
