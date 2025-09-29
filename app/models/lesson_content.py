@@ -65,6 +65,15 @@ class WordCreate(BaseModel):
     example_audio: Optional[str] = None
 
 
+class WordUpdate(BaseModel):
+    word: Optional[str] = None
+    translation: Optional[str] = None
+    audio_url: Optional[str] = None
+    image_url: Optional[str] = None
+    example_sentence: Optional[str] = None
+    example_audio: Optional[str] = None
+
+
 class StoryCreate(BaseModel):
     lesson_id: int
     audio_url: Optional[str] = None

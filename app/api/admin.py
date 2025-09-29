@@ -5,7 +5,7 @@ import logging
 from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
 from ..models.content import Course, Chapter, Lesson, CourseCreate, ChapterCreate, LessonCreate, CourseResponse, ChapterResponse, LessonResponse
-from ..models.lesson_content import Word, Story, Subtitle, WordCreate, StoryCreate, WordResponse, StoryResponse
+from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, WordResponse, StoryResponse
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
 
@@ -225,7 +225,7 @@ async def get_lesson_words(
 @router.put("/words/{word_id}", response_model=WordResponse)
 async def update_word(
     word_id: int,
-    word_update: WordCreate,
+    word_update: WordUpdate,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -233,7 +233,9 @@ async def update_word(
     if not word:
         raise HTTPException(status_code=404, detail="Word not found")
     
-    for key, value in word_update.dict().items():
+    # Only update fields that are provided (not None)
+    update_data = word_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(word, key, value)
     
     db.commit()
