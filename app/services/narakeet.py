@@ -8,7 +8,7 @@ class NarakeetService:
         self.api_key = os.getenv("NARAKEET")
         self.base_url = "https://api.narakeet.com"
     
-    async def generate_audio(self, text: str, voice: str = "amy") -> Optional[bytes]:
+    async def generate_audio(self, text: str, voice: Optional[str] = None) -> Optional[bytes]:
         if not self.api_key:
             return None
         
@@ -17,7 +17,7 @@ class NarakeetService:
             "Content-Type": "text/plain"
         }
         
-        params = {"voice": voice}
+        params = {"voice": voice} if voice else {}
         
         try:
             async with httpx.AsyncClient() as client:
