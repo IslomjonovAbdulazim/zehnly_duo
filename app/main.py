@@ -18,16 +18,34 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files (except audio - handled separately)
+# Mount static files
 app.mount("/logos", StaticFiles(directory=f"{settings.STORAGE_PATH}/logos"), name="logos")
 app.mount("/images", StaticFiles(directory=f"{settings.STORAGE_PATH}/images"), name="images")
 
 # Custom audio endpoint to bypass caching
-@app.get("/{filename:path}")
+@app.get("/audio/{filename}")
 async def serve_audio_no_cache(filename: str):
     """Serve audio files without caching"""
+    audio_path = os.path.join(settings.STORAGE_PATH, "audio", filename)
+    if not os.path.exists(audio_path):
+        raise HTTPException(status_code=404, detail="Audio file not found")
+    
+    return FileResponse(
+        audio_path,
+        media_type="audio/mpeg",
+        headers={
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0"
+        }
+    )
+
+# Serve MP3 files from root (for existing URLs like /lesson_1_xxx.mp3)
+@app.get("/{filename}")
+async def serve_root_audio_no_cache(filename: str):
+    """Serve MP3 files from root path without caching"""
     if not filename.endswith('.mp3'):
-        raise HTTPException(status_code=404, detail="File not found")
+        raise HTTPException(status_code=404, detail="Not found")
     
     audio_path = os.path.join(settings.STORAGE_PATH, "audio", filename)
     if not os.path.exists(audio_path):
