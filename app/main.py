@@ -4,6 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi import HTTPException
 import os
+import logging
 from .api import admin, students
 from .config import settings
 
@@ -26,13 +27,37 @@ app.mount("/images", StaticFiles(directory=f"{settings.STORAGE_PATH}/images"), n
 @app.get("/audio/{filename}")
 async def serve_audio_no_cache(filename: str):
     """Serve audio files without caching"""
+    logger = logging.getLogger(__name__)
+    logger.info(f"Audio request for: {filename}")
+    
     audio_path = os.path.join(settings.STORAGE_PATH, "audio", filename)
-    if not os.path.exists(audio_path):
+    logger.info(f"Looking for audio at: {audio_path}")
+    logger.info(f"File exists: {os.path.exists(audio_path)}")
+    
+    if os.path.exists(audio_path):
+        file_size = os.path.getsize(audio_path)
+        logger.info(f"File size: {file_size} bytes")
+        
+        if file_size == 0:
+            logger.warning(f"Audio file is empty: {filename}")
+            raise HTTPException(status_code=404, detail="Audio file is empty")
+    else:
+        logger.error(f"Audio file not found: {audio_path}")
         raise HTTPException(status_code=404, detail="Audio file not found")
+    
+    # Determine media type based on file extension
+    if filename.endswith('.m4a'):
+        media_type = "audio/mp4"
+    elif filename.endswith('.mp3'):
+        media_type = "audio/mpeg"
+    else:
+        media_type = "audio/mpeg"  # default
+    
+    logger.info(f"Serving with media type: {media_type}")
     
     return FileResponse(
         audio_path,
-        media_type="audio/mpeg",
+        media_type=media_type,
         headers={
             "Cache-Control": "no-cache, no-store, must-revalidate",
             "Pragma": "no-cache",
@@ -40,20 +65,45 @@ async def serve_audio_no_cache(filename: str):
         }
     )
 
-# Serve MP3 files from root (for existing URLs like /lesson_1_xxx.mp3)
+# Serve audio files from root (for existing URLs like /lesson_1_xxx.mp3)
 @app.get("/{filename}")
 async def serve_root_audio_no_cache(filename: str):
-    """Serve MP3 files from root path without caching"""
-    if not filename.endswith('.mp3'):
+    """Serve audio files from root path without caching"""
+    logger = logging.getLogger(__name__)
+    logger.info(f"Root audio request for: {filename}")
+    
+    if not (filename.endswith('.mp3') or filename.endswith('.m4a')):
+        logger.info(f"Not an audio file: {filename}")
         raise HTTPException(status_code=404, detail="Not found")
     
     audio_path = os.path.join(settings.STORAGE_PATH, "audio", filename)
-    if not os.path.exists(audio_path):
+    logger.info(f"Looking for root audio at: {audio_path}")
+    logger.info(f"File exists: {os.path.exists(audio_path)}")
+    
+    if os.path.exists(audio_path):
+        file_size = os.path.getsize(audio_path)
+        logger.info(f"Root audio file size: {file_size} bytes")
+        
+        if file_size == 0:
+            logger.warning(f"Root audio file is empty: {filename}")
+            raise HTTPException(status_code=404, detail="Audio file is empty")
+    else:
+        logger.error(f"Root audio file not found: {audio_path}")
         raise HTTPException(status_code=404, detail="Audio file not found")
+    
+    # Determine media type based on file extension
+    if filename.endswith('.m4a'):
+        media_type = "audio/mp4"
+    elif filename.endswith('.mp3'):
+        media_type = "audio/mpeg"
+    else:
+        media_type = "audio/mpeg"  # default
+    
+    logger.info(f"Serving root audio with media type: {media_type}")
     
     return FileResponse(
         audio_path,
-        media_type="audio/mpeg",
+        media_type=media_type,
         headers={
             "Cache-Control": "no-cache, no-store, must-revalidate",
             "Pragma": "no-cache",

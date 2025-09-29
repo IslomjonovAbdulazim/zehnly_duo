@@ -328,7 +328,7 @@ async def generate_word_audio(
     if not audio_data:
         raise HTTPException(status_code=500, detail="Failed to generate audio")
     
-    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.mp3", word_id)
+    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.m4a", word_id)
     
     # Update word with audio URL
     word.audio_url = audio_url
@@ -392,7 +392,7 @@ async def generate_example_audio(
     if not audio_data:
         raise HTTPException(status_code=500, detail="Failed to generate audio")
     
-    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_example_audio.mp3", word_id)
+    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_example_audio.m4a", word_id)
     
     # Update word with example audio URL
     word.example_audio = audio_url
@@ -416,7 +416,7 @@ async def generate_story_audio(
     if not audio_data:
         raise HTTPException(status_code=500, detail="Failed to generate audio")
     
-    audio_url = await _save_audio_from_data(audio_data, f"story_{story_id}_audio.mp3", story_id)
+    audio_url = await _save_audio_from_data(audio_data, f"story_{story_id}_audio.m4a", story_id)
     
     # Update story with audio URL
     story.audio_url = audio_url
@@ -486,7 +486,7 @@ async def _save_audio_from_data(audio_data: bytes, filename: str, entity_id: int
     import tempfile
     import os
     
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_file:
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".m4a") as temp_file:
         temp_file.write(audio_data)
         temp_file.flush()
         
