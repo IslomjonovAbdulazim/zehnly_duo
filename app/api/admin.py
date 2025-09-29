@@ -4,7 +4,7 @@ from typing import List, Optional
 import logging
 from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
-from ..models.content import Course, Chapter, Lesson, CourseCreate, ChapterCreate, LessonCreate, CourseResponse, ChapterResponse, LessonResponse
+from ..models.content import Course, Chapter, Lesson, CourseCreate, CourseUpdate, ChapterCreate, ChapterUpdate, LessonCreate, LessonUpdate, CourseResponse, ChapterResponse, LessonResponse
 from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, WordResponse, StoryResponse
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
@@ -54,7 +54,7 @@ async def get_course(
 @router.put("/courses/{course_id}", response_model=CourseResponse)
 async def update_course(
     course_id: int,
-    course_update: CourseCreate,
+    course_update: CourseUpdate,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -62,7 +62,9 @@ async def update_course(
     if not course:
         raise HTTPException(status_code=404, detail="Course not found")
     
-    for key, value in course_update.dict().items():
+    # Only update fields that are provided (not None)
+    update_data = course_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(course, key, value)
     
     db.commit()
@@ -111,7 +113,7 @@ async def get_course_chapters(
 @router.put("/chapters/{chapter_id}", response_model=ChapterResponse)
 async def update_chapter(
     chapter_id: int,
-    chapter_update: ChapterCreate,
+    chapter_update: ChapterUpdate,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -119,7 +121,9 @@ async def update_chapter(
     if not chapter:
         raise HTTPException(status_code=404, detail="Chapter not found")
     
-    for key, value in chapter_update.dict().items():
+    # Only update fields that are provided (not None)
+    update_data = chapter_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(chapter, key, value)
     
     db.commit()
@@ -168,7 +172,7 @@ async def get_chapter_lessons(
 @router.put("/lessons/{lesson_id}", response_model=LessonResponse)
 async def update_lesson(
     lesson_id: int,
-    lesson_update: LessonCreate,
+    lesson_update: LessonUpdate,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -176,7 +180,9 @@ async def update_lesson(
     if not lesson:
         raise HTTPException(status_code=404, detail="Lesson not found")
     
-    for key, value in lesson_update.dict().items():
+    # Only update fields that are provided (not None)
+    update_data = lesson_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(lesson, key, value)
     
     db.commit()

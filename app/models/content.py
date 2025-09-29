@@ -68,10 +68,22 @@ class CourseCreate(BaseModel):
     logo_url: Optional[str] = None
 
 
+class CourseUpdate(BaseModel):
+    title: Optional[str] = None
+    native_language: Optional[str] = None
+    learning_language: Optional[str] = None
+    logo_url: Optional[str] = None
+
+
 class ChapterCreate(BaseModel):
     title: str
     course_id: int
     order: int
+
+
+class ChapterUpdate(BaseModel):
+    title: Optional[str] = None
+    order: Optional[int] = None
 
 
 class LessonCreate(BaseModel):
@@ -80,6 +92,13 @@ class LessonCreate(BaseModel):
     order: int
     content: Optional[str] = None
     lesson_type: LessonType = LessonType.WORD
+
+
+class LessonUpdate(BaseModel):
+    title: Optional[str] = None
+    order: Optional[int] = None
+    content: Optional[str] = None
+    lesson_type: Optional[LessonType] = None
 
 
 class CourseResponse(BaseModel):
