@@ -9,10 +9,11 @@ class NarakeetService:
         self.api_key = os.getenv("NARAKEET")
         self.base_url = "https://api.narakeet.com"
     
-    async def generate_audio(self, text: str, voice: Optional[str] = None) -> Optional[bytes]:
+    async def generate_audio(self, text: str, voice: Optional[str] = None, speed: float = 1.0) -> Optional[bytes]:
         logger = logging.getLogger(__name__)
         logger.info(f"🎵 Starting audio generation for text: '{text[:50]}...'")
         logger.info(f"🎤 Voice requested: {voice}")
+        logger.info(f"🏃 Speed requested: {speed}x")
         logger.info(f"📄 Text length: {len(text)} characters")
         
         if not self.api_key:
@@ -24,12 +25,12 @@ class NarakeetService:
         # Check if we need long content API
         if len(text) > 1000:
             logger.info("📏 Text is long, using Long Content API")
-            return await self._generate_long_audio(text, voice)
+            return await self._generate_long_audio(text, voice, speed)
         else:
             logger.info("📏 Text is short, using Simple API")
-            return await self._generate_short_audio(text, voice)
+            return await self._generate_short_audio(text, voice, speed)
 
-    async def _generate_short_audio(self, text: str, voice: Optional[str] = None) -> Optional[bytes]:
+    async def _generate_short_audio(self, text: str, voice: Optional[str] = None, speed: float = 1.0) -> Optional[bytes]:
         logger = logging.getLogger(__name__)
         
         headers = {
@@ -39,8 +40,15 @@ class NarakeetService:
         }
         
         url = f"{self.base_url}/text-to-speech/m4a"
+        params = []
         if voice:
-            url += f'?voice={voice}'
+            params.append(f"voice={voice}")
+        
+        # Add speed parameter (default 1.0 = normal speed)
+        params.append(f"voice-speed={speed}")
+        
+        if params:
+            url += "?" + "&".join(params)
         
         logger.info(f"🌐 Making SHORT request to: {url}")
         
@@ -73,7 +81,7 @@ class NarakeetService:
             logger.error(f"💥 SHORT API error: {e}")
             return None
 
-    async def _generate_long_audio(self, text: str, voice: Optional[str] = None) -> Optional[bytes]:
+    async def _generate_long_audio(self, text: str, voice: Optional[str] = None, speed: float = 1.0) -> Optional[bytes]:
         logger = logging.getLogger(__name__)
         
         # Step 1: Start build
@@ -83,8 +91,15 @@ class NarakeetService:
         }
         
         url = f"{self.base_url}/text-to-speech/m4a"
+        params = []
         if voice:
-            url += f'?voice={voice}'
+            params.append(f"voice={voice}")
+        
+        # Add speed parameter for long content too
+        params.append(f"voice-speed={speed}")
+        
+        if params:
+            url += "?" + "&".join(params)
         
         logger.info(f"🚀 LONG: Starting build request to: {url}")
         
