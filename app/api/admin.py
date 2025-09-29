@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import List, Optional
+import logging
 from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
 from ..models.content import Course, Chapter, Lesson, CourseCreate, ChapterCreate, LessonCreate, CourseResponse, ChapterResponse, LessonResponse
@@ -320,19 +321,34 @@ async def generate_word_audio(
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
+    logger = logging.getLogger(__name__)
+    logger.info(f"🎯 Starting word audio generation for word_id: {word_id}")
+    
     word = db.query(Word).filter(Word.id == word_id).first()
     if not word:
+        logger.error(f"❌ Word not found: {word_id}")
         raise HTTPException(status_code=404, detail="Word not found")
     
+    logger.info(f"📝 Found word: '{word.word}' (ID: {word_id})")
+    logger.info(f"🎤 Voice parameter: {voice}")
+    
+    logger.info("🔄 Calling Narakeet service...")
     audio_data = await narakeet_service.generate_audio(word.word, voice)
+    
     if not audio_data:
+        logger.error("❌ Narakeet service returned no audio data")
         raise HTTPException(status_code=500, detail="Failed to generate audio")
     
-    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.m4a", word_id)
+    logger.info(f"✅ Audio data received: {len(audio_data)} bytes")
+    
+    logger.info("💾 Saving audio file...")
+    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.mp3", word_id)
+    logger.info(f"📁 Audio saved to: {audio_url}")
     
     # Update word with audio URL
     word.audio_url = audio_url
     db.commit()
+    logger.info("✅ Database updated with audio URL")
     
     return {"message": "Audio generated successfully", "audio_url": audio_url}
 
@@ -486,24 +502,47 @@ async def _save_audio_from_data(audio_data: bytes, filename: str, entity_id: int
     import tempfile
     import os
     
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".m4a") as temp_file:
+    logger = logging.getLogger(__name__)
+    logger.info(f"💾 Saving audio data to file: {filename}")
+    logger.info(f"📊 Audio data size: {len(audio_data)} bytes")
+    logger.info(f"🆔 Entity ID: {entity_id}")
+    
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_file:
+        logger.info(f"📁 Created temp file: {temp_file.name}")
+        
         temp_file.write(audio_data)
         temp_file.flush()
+        
+        # Verify temp file was written correctly
+        temp_file_size = os.path.getsize(temp_file.name)
+        logger.info(f"✅ Temp file written: {temp_file_size} bytes")
+        
+        if temp_file_size == 0:
+            logger.error("❌ Temp file is empty!")
+            os.unlink(temp_file.name)
+            raise HTTPException(status_code=500, detail="Generated audio file is empty")
         
         # Create UploadFile-like object
         class AudioFile:
             def __init__(self, file_path, filename):
                 self.filename = filename
                 self.file_path = file_path
+                logger.info(f"📄 AudioFile created: {filename} -> {file_path}")
             
             async def read(self):
+                logger.info(f"📖 Reading audio file: {self.file_path}")
                 with open(self.file_path, 'rb') as f:
-                    return f.read()
+                    data = f.read()
+                    logger.info(f"📖 Read {len(data)} bytes from temp file")
+                    return data
         
         audio_file = AudioFile(temp_file.name, filename)
+        logger.info("🔄 Calling storage service...")
         audio_url = await storage_service.save_audio(audio_file, entity_id)
+        logger.info(f"✅ Storage service returned URL: {audio_url}")
         
         # Clean up temp file
+        logger.info(f"🗑️ Cleaning up temp file: {temp_file.name}")
         os.unlink(temp_file.name)
         
         return audio_url
