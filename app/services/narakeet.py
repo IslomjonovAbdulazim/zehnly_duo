@@ -100,7 +100,8 @@ class NarakeetService:
                 
                 logger.info(f"📊 LONG: Build response status: {response.status_code}")
                 
-                if response.status_code != 202:  # Long content returns 202 Accepted
+                # Long content can return 200 or 202, both are valid
+                if response.status_code not in [200, 202]:
                     logger.error(f"❌ LONG: Build failed: {response.status_code}")
                     logger.error(f"📄 LONG: Build error: {response.text}")
                     return None

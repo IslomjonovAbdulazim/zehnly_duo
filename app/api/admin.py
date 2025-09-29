@@ -5,7 +5,7 @@ import logging
 from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
 from ..models.content import Course, Chapter, Lesson, CourseCreate, CourseUpdate, ChapterCreate, ChapterUpdate, LessonCreate, LessonUpdate, CourseResponse, ChapterResponse, LessonResponse
-from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, WordResponse, StoryResponse
+from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, StoryUpdate, WordResponse, StoryResponse
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
 
@@ -290,7 +290,7 @@ async def get_lesson_stories(
 @router.put("/stories/{story_id}", response_model=StoryResponse)
 async def update_story(
     story_id: int,
-    story_update: StoryCreate,
+    story_update: StoryUpdate,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -298,7 +298,9 @@ async def update_story(
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     
-    for key, value in story_update.dict().items():
+    # Only update fields that are provided (not None)
+    update_data = story_update.dict(exclude_unset=True)
+    for key, value in update_data.items():
         setattr(story, key, value)
     
     db.commit()

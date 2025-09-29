@@ -80,6 +80,11 @@ class StoryCreate(BaseModel):
     story_text: str
 
 
+class StoryUpdate(BaseModel):
+    audio_url: Optional[str] = None
+    story_text: Optional[str] = None
+
+
 class SubtitleCreate(BaseModel):
     story_id: int
     text: str
