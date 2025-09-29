@@ -316,7 +316,7 @@ async def delete_story(
 @router.post("/words/{word_id}/generate-audio")
 async def generate_word_audio(
     word_id: int,
-    voice: str = "amy",
+    voice: Optional[str] = None,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -377,7 +377,7 @@ async def upload_word_audio(
 @router.post("/words/{word_id}/generate-example-audio")
 async def generate_example_audio(
     word_id: int,
-    voice: str = "amy",
+    voice: Optional[str] = None,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
@@ -404,7 +404,7 @@ async def generate_example_audio(
 @router.post("/stories/{story_id}/generate-audio")
 async def generate_story_audio(
     story_id: int,
-    voice: str = "amy",
+    voice: Optional[str] = None,
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
