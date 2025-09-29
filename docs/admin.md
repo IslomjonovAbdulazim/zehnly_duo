@@ -655,14 +655,7 @@ POST /admin/upload/image/{word_id}
 ### Lesson Types
 - `word` - Lesson focused on vocabulary
 - `story` - Lesson focused on reading comprehension
-
-### Available Voices for Audio Generation
-- `amy` (default)
-- `brian`
-- `emma`
-- `russell`
-- `sally`
-
+- 
 ### File Upload Requirements
 - **Audio files:** MP3 format recommended
 - **Images:** JPG, PNG formats supported
