@@ -21,15 +21,17 @@ class NarakeetService:
         logger.info(f"🔑 API key present: {'*' * 10}{self.api_key[-4:] if len(self.api_key) > 4 else '****'}")
         
         headers = {
+            "Accept": "application/octet-stream",
+            "Content-Type": "text/plain",
             "x-api-key": self.api_key,
-            "Content-Type": "text/plain"
         }
         
-        params = {"voice": voice} if voice else {}
-        url = f"{self.base_url}/text-to-speech/mp3"
+        url = f"{self.base_url}/text-to-speech/m4a"
+        if voice:
+            url += f'?voice={voice}'
         
         logger.info(f"🌐 Making request to: {url}")
-        logger.info(f"📝 Request params: {params}")
+        logger.info(f"🎤 Voice parameter: {voice}")
         logger.info(f"📄 Text length: {len(text)} characters")
         
         try:
@@ -38,8 +40,7 @@ class NarakeetService:
                 response = await client.post(
                     url,
                     headers=headers,
-                    params=params,
-                    content=text
+                    content=text.encode('utf8')
                 )
                 
                 logger.info(f"📊 Response status: {response.status_code}")

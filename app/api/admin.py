@@ -342,7 +342,7 @@ async def generate_word_audio(
     logger.info(f"✅ Audio data received: {len(audio_data)} bytes")
     
     logger.info("💾 Saving audio file...")
-    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.mp3", word_id)
+    audio_url = await _save_audio_from_data(audio_data, f"word_{word_id}_audio.m4a", word_id)
     logger.info(f"📁 Audio saved to: {audio_url}")
     
     # Update word with audio URL
@@ -507,7 +507,7 @@ async def _save_audio_from_data(audio_data: bytes, filename: str, entity_id: int
     logger.info(f"📊 Audio data size: {len(audio_data)} bytes")
     logger.info(f"🆔 Entity ID: {entity_id}")
     
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_file:
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".m4a") as temp_file:
         logger.info(f"📁 Created temp file: {temp_file.name}")
         
         temp_file.write(audio_data)
