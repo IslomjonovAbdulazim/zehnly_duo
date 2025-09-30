@@ -9,6 +9,7 @@ from ..database import Base
 class LessonType(PyEnum):
     WORD = "word"
     STORY = "story"
+    TEST = "test"
 
 
 class Course(Base):
@@ -49,10 +50,12 @@ class Lesson(Base):
     order = Column(Integer, nullable=False)
     content = Column(Text, nullable=True)
     lesson_type = Column(Enum(LessonType), nullable=False, default=LessonType.WORD, index=True)
+    word_lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="CASCADE"), nullable=True, index=True)
     
     chapter = relationship("Chapter", back_populates="lessons")
     words = relationship("Word", back_populates="lesson")
     stories = relationship("Story", back_populates="lesson")
+    word_lesson = relationship("Lesson", remote_side=[id], backref="test_lessons")
     
     __table_args__ = (
         UniqueConstraint('chapter_id', 'order', name='unique_lesson_order'),
@@ -92,6 +95,7 @@ class LessonCreate(BaseModel):
     order: int
     content: Optional[str] = None
     lesson_type: LessonType = LessonType.WORD
+    word_lesson_id: Optional[int] = None
 
 
 class LessonUpdate(BaseModel):
@@ -99,6 +103,7 @@ class LessonUpdate(BaseModel):
     order: Optional[int] = None
     content: Optional[str] = None
     lesson_type: Optional[LessonType] = None
+    word_lesson_id: Optional[int] = None
 
 
 class CourseResponse(BaseModel):
@@ -129,6 +134,7 @@ class LessonResponse(BaseModel):
     order: int
     content: Optional[str] = None
     lesson_type: LessonType
+    word_lesson_id: Optional[int] = None
     
     class Config:
         from_attributes = True
