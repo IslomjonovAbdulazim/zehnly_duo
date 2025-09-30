@@ -731,6 +731,7 @@ async def upload_word_audio(
 async def generate_example_audio(
         word_id: int,
         voice: Optional[str] = None,
+        speed: Optional[float] = 1.0,  # Normal speed for examples
         db: Session = Depends(get_db),
         admin: str = Depends(verify_admin_token)
 ):
