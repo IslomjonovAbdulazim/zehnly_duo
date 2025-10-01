@@ -261,7 +261,7 @@ async def complete_quiz(
             lesson_progress.completed_at = datetime.utcnow()
     
     lesson_progress.score = score_percentage
-    lesson_progress.attempts += 1
+    lesson_progress.attempts = (lesson_progress.attempts or 0) + 1
     
     # Update course progress
     course_progress = db.query(UserCourseProgress).filter(
