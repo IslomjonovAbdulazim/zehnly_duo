@@ -5,7 +5,7 @@ import logging
 from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
 from ..models.content import Course, Chapter, Lesson, CourseCreate, CourseUpdate, ChapterCreate, ChapterUpdate, LessonCreate, LessonUpdate, CourseResponse, ChapterResponse, LessonResponse
-from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, StoryUpdate, WordResponse, StoryResponse
+from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, StoryUpdate, WordResponse, StoryResponse, SubtitleResponse
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
 from ..services.whisper import whisper_service
@@ -286,6 +286,33 @@ async def get_lesson_stories(
     admin: str = Depends(verify_admin_token)
 ):
     return db.query(Story).filter(Story.lesson_id == lesson_id).all()
+
+
+@router.get("/stories/{story_id}", response_model=StoryResponse)
+async def get_story(
+    story_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    story = db.query(Story).filter(Story.id == story_id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    return story
+
+
+@router.get("/stories/{story_id}/subtitles", response_model=List[SubtitleResponse])
+async def get_story_subtitles(
+    story_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    """Get all subtitles for a specific story"""
+    story = db.query(Story).filter(Story.id == story_id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    
+    subtitles = db.query(Subtitle).filter(Subtitle.story_id == story_id).order_by(Subtitle.start_audio).all()
+    return subtitles
 
 
 @router.put("/stories/{story_id}", response_model=StoryResponse)
