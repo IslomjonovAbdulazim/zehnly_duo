@@ -8,6 +8,7 @@ from ..models.content import Course, Chapter, Lesson, CourseCreate, CourseUpdate
 from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, StoryUpdate, WordResponse, StoryResponse
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
+from ..services.whisper import whisper_service
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
@@ -997,13 +998,16 @@ async def generate_story_audio(
     story_id: int,
     voice: Optional[str] = None,
     speed: Optional[float] = 1.0,  # Normal speed for stories
+    generate_subtitles: bool = True,  # Auto-generate subtitles by default
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
 ):
+    logger = logging.getLogger(__name__)
     story = db.query(Story).filter(Story.id == story_id).first()
     if not story:
         raise HTTPException(status_code=404, detail="Story not found")
     
+    logger.info(f"🎵 Generating audio for story {story_id}")
     audio_data = await narakeet_service.generate_audio(story.story_text, voice, speed)
     if not audio_data:
         raise HTTPException(status_code=500, detail="Failed to generate audio")
@@ -1014,7 +1018,113 @@ async def generate_story_audio(
     story.audio_url = audio_url
     db.commit()
     
-    return {"message": "Story audio generated successfully", "audio_url": audio_url}
+    subtitle_count = 0
+    if generate_subtitles:
+        logger.info(f"📝 Generating subtitles for story {story_id}")
+        try:
+            # Clear existing subtitles
+            db.query(Subtitle).filter(Subtitle.story_id == story_id).delete()
+            
+            # Generate new subtitles using Whisper
+            subtitles = await whisper_service.generate_subtitles(
+                audio_data, story.story_text, story_id
+            )
+            
+            # Save subtitles to database
+            for subtitle_data in subtitles:
+                subtitle = Subtitle(
+                    story_id=subtitle_data.story_id,
+                    text=subtitle_data.text,
+                    start_audio=subtitle_data.start_audio,
+                    end_audio=subtitle_data.end_audio,
+                    start_position=subtitle_data.start_position,
+                    end_position=subtitle_data.end_position
+                )
+                db.add(subtitle)
+            
+            db.commit()
+            subtitle_count = len(subtitles)
+            logger.info(f"✅ Generated {subtitle_count} subtitles")
+            
+        except Exception as e:
+            logger.error(f"⚠️ Subtitle generation failed: {e}")
+            # Don't fail the entire request if subtitles fail
+    
+    response_msg = f"Story audio generated successfully"
+    if generate_subtitles and subtitle_count > 0:
+        response_msg += f" with {subtitle_count} subtitles"
+    elif generate_subtitles:
+        response_msg += " (subtitle generation failed)"
+    
+    return {
+        "message": response_msg,
+        "audio_url": audio_url,
+        "subtitle_count": subtitle_count
+    }
+
+
+@router.post("/stories/{story_id}/generate-subtitles")
+async def generate_story_subtitles(
+    story_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    """Generate subtitles for an existing story with audio"""
+    logger = logging.getLogger(__name__)
+    story = db.query(Story).filter(Story.id == story_id).first()
+    if not story:
+        raise HTTPException(status_code=404, detail="Story not found")
+    
+    if not story.audio_url:
+        raise HTTPException(status_code=400, detail="Story has no audio file")
+    
+    logger.info(f"📝 Generating subtitles for story {story_id} with existing audio")
+    
+    try:
+        # Get audio data from storage
+        # Assuming we can read the audio file from the URL or storage
+        import httpx
+        async with httpx.AsyncClient() as client:
+            if story.audio_url.startswith('http'):
+                response = await client.get(story.audio_url)
+                audio_data = response.content
+            else:
+                # Handle local file paths if needed
+                with open(story.audio_url, 'rb') as f:
+                    audio_data = f.read()
+        
+        # Clear existing subtitles
+        db.query(Subtitle).filter(Subtitle.story_id == story_id).delete()
+        
+        # Generate new subtitles using Whisper
+        subtitles = await whisper_service.generate_subtitles(
+            audio_data, story.story_text, story_id
+        )
+        
+        # Save subtitles to database
+        for subtitle_data in subtitles:
+            subtitle = Subtitle(
+                story_id=subtitle_data.story_id,
+                text=subtitle_data.text,
+                start_audio=subtitle_data.start_audio,
+                end_audio=subtitle_data.end_audio,
+                start_position=subtitle_data.start_position,
+                end_position=subtitle_data.end_position
+            )
+            db.add(subtitle)
+        
+        db.commit()
+        subtitle_count = len(subtitles)
+        logger.info(f"✅ Generated {subtitle_count} subtitles")
+        
+        return {
+            "message": f"Generated {subtitle_count} subtitles successfully",
+            "subtitle_count": subtitle_count
+        }
+        
+    except Exception as e:
+        logger.error(f"💥 Subtitle generation failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate subtitles: {str(e)}")
 
 
 @router.post("/upload/example-audio/{word_id}")
