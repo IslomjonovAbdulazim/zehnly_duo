@@ -29,10 +29,12 @@ class Story(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="CASCADE"), index=True)
+    word_lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="SET NULL"), nullable=True, index=True)
     audio_url = Column(String, nullable=True)
     story_text = Column(Text, nullable=False)
     
-    lesson = relationship("Lesson", back_populates="stories")
+    lesson = relationship("Lesson", back_populates="stories", foreign_keys=[lesson_id])
+    word_lesson = relationship("Lesson", foreign_keys=[word_lesson_id])
     subtitles = relationship("Subtitle", back_populates="story")
 
 
@@ -76,11 +78,13 @@ class WordUpdate(BaseModel):
 
 class StoryCreate(BaseModel):
     lesson_id: int
+    word_lesson_id: Optional[int] = None
     audio_url: Optional[str] = None
     story_text: str
 
 
 class StoryUpdate(BaseModel):
+    word_lesson_id: Optional[int] = None
     audio_url: Optional[str] = None
     story_text: Optional[str] = None
 
@@ -124,6 +128,7 @@ class SubtitleResponse(BaseModel):
 class StoryResponse(BaseModel):
     id: int
     lesson_id: int
+    word_lesson_id: Optional[int] = None
     audio_url: Optional[str] = None
     story_text: str
     subtitles: List[SubtitleResponse] = []

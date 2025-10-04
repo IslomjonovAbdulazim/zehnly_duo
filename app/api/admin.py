@@ -315,6 +315,22 @@ async def get_story_subtitles(
     return subtitles
 
 
+@router.get("/word-lessons/{word_lesson_id}/stories", response_model=List[StoryResponse])
+async def get_word_lesson_stories(
+    word_lesson_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    """Get all stories that reference a specific word lesson"""
+    # Verify word lesson exists
+    word_lesson = db.query(Lesson).filter(Lesson.id == word_lesson_id).first()
+    if not word_lesson:
+        raise HTTPException(status_code=404, detail="Word lesson not found")
+    
+    stories = db.query(Story).filter(Story.word_lesson_id == word_lesson_id).all()
+    return stories
+
+
 @router.put("/stories/{story_id}", response_model=StoryResponse)
 async def update_story(
     story_id: int,
