@@ -206,6 +206,7 @@ async def get_lesson_content(
                 "id": story.id,
                 "story_text": story.story_text,
                 "audio_url": story.audio_url,
+                "word_lesson_id": story.word_lesson_id,
                 "subtitles": [
                     {
                         "id": subtitle.id,
