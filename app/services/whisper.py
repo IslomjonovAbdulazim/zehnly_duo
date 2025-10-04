@@ -51,17 +51,23 @@ class WhisperService:
                 
                 # Extract words with timestamps
                 subtitles = []
+                consumed_position = 0  # Track where we've already mapped words
+                
                 if hasattr(transcription, 'words') and transcription.words:
                     for word_data in transcription.words:
-                        # Calculate text positions in the original story
                         word_text = word_data.word.strip()
-                        start_pos = story_text.lower().find(word_text.lower())
-                        end_pos = start_pos + len(word_text) if start_pos != -1 else 0
                         
-                        # If word not found in original text, use approximate position
-                        if start_pos == -1:
-                            start_pos = 0
-                            end_pos = len(word_text)
+                        # Find word AFTER the last consumed position (sequential mapping)
+                        start_pos = story_text.lower().find(word_text.lower(), consumed_position)
+                        
+                        if start_pos != -1:
+                            end_pos = start_pos + len(word_text)
+                            consumed_position = end_pos  # Move forward for next word
+                        else:
+                            # Fallback if word not found - use current consumed position
+                            start_pos = consumed_position
+                            end_pos = consumed_position + len(word_text)
+                            consumed_position = end_pos
                         
                         # Ensure end_audio is always greater than start_audio
                         start_time = word_data.start
