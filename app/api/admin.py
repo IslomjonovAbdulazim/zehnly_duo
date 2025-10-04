@@ -371,7 +371,7 @@ async def delete_story(
 @router.post("/words/{word_id}/generate-audio")
 async def generate_word_audio(
     word_id: int,
-    voice: Optional[str] = None,
+    voice: Optional[str] = "betty",  # Default to Betty voice
     speed: Optional[float] = 0.8,  # Default slower speed for learning
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
@@ -412,7 +412,7 @@ async def generate_word_audio(
 @router.post("/words/{word_id}/generate-example-audio")
 async def generate_example_audio(
     word_id: int,
-    voice: Optional[str] = None,
+    voice: Optional[str] = "betty",  # Default to Betty voice
     speed: Optional[float] = 1.0,  # Normal speed for examples
     db: Session = Depends(get_db),
     admin: str = Depends(verify_admin_token)
@@ -440,7 +440,7 @@ async def generate_example_audio(
 @router.post("/stories/{story_id}/generate-audio")
 async def generate_story_audio(
     story_id: int,
-    voice: Optional[str] = None,
+    voice: Optional[str] = "betty",  # Default to Betty voice
     speed: Optional[float] = 1.0,  # Normal speed for stories
     generate_subtitles: bool = True,  # Auto-generate subtitles by default
     db: Session = Depends(get_db),
