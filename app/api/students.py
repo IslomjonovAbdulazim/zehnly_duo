@@ -169,14 +169,28 @@ async def get_lesson_content(
     words = db.query(Word).filter(Word.lesson_id == lesson_id).all()
     stories = db.query(Story).options(joinedload(Story.subtitles)).filter(Story.lesson_id == lesson_id).all()
     
-    # Get word progress for this user
+    # Get all word lesson IDs referenced by stories to fetch their words
+    story_word_lesson_ids = [story.word_lesson_id for story in stories if story.word_lesson_id]
+    story_words = []
+    if story_word_lesson_ids:
+        story_words = db.query(Word).filter(Word.lesson_id.in_(story_word_lesson_ids)).all()
+    
+    # Get word progress for this user (both lesson words and story-referenced words)
+    all_word_ids = [w.id for w in words] + [w.id for w in story_words]
     word_progress = db.query(UserWordProgress).filter(
         UserWordProgress.user_id == user.id,
-        UserWordProgress.lesson_id == lesson_id
-    ).all()
+        UserWordProgress.word_id.in_(all_word_ids)
+    ).all() if all_word_ids else []
     
     # Create word progress lookup
     word_progress_map = {wp.word_id: wp for wp in word_progress}
+    
+    # Create word lookup by lesson_id for stories
+    story_words_by_lesson = {}
+    for word in story_words:
+        if word.lesson_id not in story_words_by_lesson:
+            story_words_by_lesson[word.lesson_id] = []
+        story_words_by_lesson[word.lesson_id].append(word)
     
     return {
         "lesson": {
@@ -207,6 +221,22 @@ async def get_lesson_content(
                 "story_text": story.story_text,
                 "audio_url": story.audio_url,
                 "word_lesson_id": story.word_lesson_id,
+                "words": [
+                    {
+                        "id": word.id,
+                        "word": word.word,
+                        "translation": word.translation,
+                        "audio_url": word.audio_url,
+                        "image_url": word.image_url,
+                        "example_sentence": word.example_sentence,
+                        "example_audio": word.example_audio,
+                        "progress": {
+                            "is_learned": word_progress_map[word.id].is_learned if word.id in word_progress_map else False,
+                            "last_5_results": word_progress_map[word.id].last_5_results if word.id in word_progress_map else ""
+                        }
+                    }
+                    for word in story_words_by_lesson.get(story.word_lesson_id, [])
+                ] if story.word_lesson_id else [],
                 "subtitles": [
                     {
                         "id": subtitle.id,
