@@ -211,7 +211,7 @@ async def get_lesson_content(
                 "progress": {
                     "is_learned": word_progress_map[word.id].is_learned if word.id in word_progress_map else False,
                     "last_5_results": word_progress_map[word.id].last_5_results if word.id in word_progress_map else ""
-                }
+                } if word.id in word_progress_map else None
             }
             for word in words
         ],
@@ -233,7 +233,7 @@ async def get_lesson_content(
                         "progress": {
                             "is_learned": word_progress_map[word.id].is_learned if word.id in word_progress_map else False,
                             "last_5_results": word_progress_map[word.id].last_5_results if word.id in word_progress_map else ""
-                        }
+                        } if word.id in word_progress_map else None
                     }
                     for word in story_words_by_lesson.get(story.word_lesson_id, [])
                 ] if story.word_lesson_id else [],
