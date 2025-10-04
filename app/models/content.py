@@ -54,7 +54,7 @@ class Lesson(Base):
     
     chapter = relationship("Chapter", back_populates="lessons")
     words = relationship("Word", back_populates="lesson")
-    stories = relationship("Story", back_populates="lesson")
+    stories = relationship("Story", back_populates="lesson", foreign_keys="Story.lesson_id")
     word_lesson = relationship("Lesson", remote_side=[id], backref="test_lessons")
     
     __table_args__ = (
