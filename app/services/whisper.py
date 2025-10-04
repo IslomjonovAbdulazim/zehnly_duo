@@ -63,11 +63,17 @@ class WhisperService:
                             start_pos = 0
                             end_pos = len(word_text)
                         
+                        # Ensure end_audio is always greater than start_audio
+                        start_time = word_data.start
+                        end_time = word_data.end
+                        if end_time <= start_time:
+                            end_time = start_time + 0.1  # Add 100ms minimum duration
+                        
                         subtitle = SubtitleCreate(
                             story_id=story_id,
                             text=word_text,
-                            start_audio=word_data.start,
-                            end_audio=word_data.end,
+                            start_audio=start_time,
+                            end_audio=end_time,
                             start_position=start_pos,
                             end_position=end_pos
                         )
@@ -83,11 +89,17 @@ class WhisperService:
                             start_pos = 0
                             end_pos = len(segment.text.strip())
                         
+                        # Ensure end_audio is always greater than start_audio
+                        start_time = segment.start
+                        end_time = segment.end
+                        if end_time <= start_time:
+                            end_time = start_time + 0.1  # Add 100ms minimum duration
+                        
                         subtitle = SubtitleCreate(
                             story_id=story_id,
                             text=segment.text.strip(),
-                            start_audio=segment.start,
-                            end_audio=segment.end,
+                            start_audio=start_time,
+                            end_audio=end_time,
                             start_position=start_pos,
                             end_position=end_pos
                         )
