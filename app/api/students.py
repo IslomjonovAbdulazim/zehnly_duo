@@ -133,7 +133,8 @@ async def get_course_structure(
                     "id": lesson.id,
                     "title": lesson.title,
                     "order": lesson.order,
-                    "lesson_type": lesson.lesson_type.value
+                    "lesson_type": lesson.lesson_type.value,
+                    "word_lesson_id": lesson.word_lesson_id
                 }
                 chapter_lessons.append(lesson_data)
             
