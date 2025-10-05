@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     STORAGE_PATH: str = "/tmp/persistent_storage"
     NARAKEET: str
+    REDIS_URL: str
     
     SUPER_ADMIN_EMAIL: str
     SUPER_ADMIN_PASSWORD: str

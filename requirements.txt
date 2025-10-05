@@ -7,3 +7,4 @@ httpx==0.25.2
 PyJWT==2.8.0
 python-multipart==0.0.6
 openai==1.54.3
+redis==5.0.1

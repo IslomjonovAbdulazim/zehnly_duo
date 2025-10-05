@@ -9,6 +9,7 @@ from ..models.content import Course, Chapter, Lesson, CourseResponse
 from ..models.lesson_content import Word, Story, Subtitle
 from ..models.progress import UserCourseProgress, UserLessonProgress, UserWordProgress, QuestionResult, QuizResultRequest
 from ..services.user_service import get_or_create_user
+from ..services.cache import cache
 
 router = APIRouter(prefix="/students", tags=["Students"])
 
@@ -55,24 +56,37 @@ async def get_available_courses(
     user: User = Depends(get_user_from_headers)
 ):
     """Get all available courses with user progress"""
-    courses = db.query(Course).all()
+    # Try cache first for course list (without progress)
+    cache_key = "available_courses"
+    cached_courses = cache.get(cache_key)
     
+    if not cached_courses:
+        # Load from DB and cache
+        courses = db.query(Course).all()
+        cached_courses = [
+            {
+                "id": course.id,
+                "title": course.title,
+                "native_language": course.native_language,
+                "learning_language": course.learning_language,
+                "logo_url": course.logo_url
+            }
+            for course in courses
+        ]
+        cache.set(cache_key, cached_courses)
+    
+    # Always fetch fresh progress data
     result = []
-    for course in courses:
-        # Get user's course progress
+    for course in cached_courses:
         course_progress = db.query(UserCourseProgress).filter(
             UserCourseProgress.user_id == user.id,
-            UserCourseProgress.course_id == course.id
+            UserCourseProgress.course_id == course["id"]
         ).first()
         
         progress_percentage = course_progress.progress_percentage if course_progress else 0.0
         
         result.append({
-            "id": course.id,
-            "title": course.title,
-            "native_language": course.native_language,
-            "learning_language": course.learning_language,
-            "logo_url": course.logo_url,
+            **course,
             "progress_percentage": progress_percentage
         })
     
@@ -86,63 +100,89 @@ async def get_course_structure(
     user: User = Depends(get_user_from_headers)
 ):
     """Get course with chapters and lessons with progress percentages"""
-    course = db.query(Course).options(
-        joinedload(Course.chapters).options(
-            joinedload(Chapter.lessons)
-        )
-    ).filter(Course.id == course_id).first()
+    # Try cache first for course structure (without progress)
+    cache_key = f"course_structure_{course_id}"
+    cached_structure = cache.get(cache_key)
     
-    if not course:
-        raise HTTPException(status_code=404, detail="Course not found")
+    if not cached_structure:
+        # Load from DB and cache
+        course = db.query(Course).options(
+            joinedload(Course.chapters).options(
+                joinedload(Chapter.lessons)
+            )
+        ).filter(Course.id == course_id).first()
+        
+        if not course:
+            raise HTTPException(status_code=404, detail="Course not found")
+        
+        # Build structure without progress (cacheable)
+        cached_structure = {
+            "id": course.id,
+            "title": course.title,
+            "native_language": course.native_language,
+            "learning_language": course.learning_language,
+            "logo_url": course.logo_url,
+            "chapters": []
+        }
+        
+        for chapter in sorted(course.chapters, key=lambda x: x.order):
+            chapter_lessons = []
+            
+            for lesson in sorted(chapter.lessons, key=lambda x: x.order):
+                lesson_data = {
+                    "id": lesson.id,
+                    "title": lesson.title,
+                    "order": lesson.order,
+                    "lesson_type": lesson.lesson_type.value
+                }
+                chapter_lessons.append(lesson_data)
+            
+            chapter_data = {
+                "id": chapter.id,
+                "title": chapter.title,
+                "order": chapter.order,
+                "lessons": chapter_lessons
+            }
+            
+            cached_structure["chapters"].append(chapter_data)
+        
+        cache.set(cache_key, cached_structure)
     
-    # Get all user progress for this course
+    # Always fetch fresh progress data
     lesson_progress = db.query(UserLessonProgress).filter(
         UserLessonProgress.user_id == user.id,
         UserLessonProgress.course_id == course_id
     ).all()
     
-    # Create lookup for lesson progress
     lesson_progress_map = {lp.lesson_id: lp for lp in lesson_progress}
     
-    # Build structure with progress
-    course_data = {
-        "id": course.id,
-        "title": course.title,
-        "native_language": course.native_language,
-        "learning_language": course.learning_language,
-        "logo_url": course.logo_url,
-        "chapters": []
-    }
+    # Merge cached structure with fresh progress
+    course_data = cached_structure.copy()
+    course_data["chapters"] = []
     
-    for chapter in sorted(course.chapters, key=lambda x: x.order):
+    for chapter in cached_structure["chapters"]:
         chapter_lessons = []
         completed_lessons = 0
         
-        for lesson in sorted(chapter.lessons, key=lambda x: x.order):
-            progress = lesson_progress_map.get(lesson.id)
+        for lesson in chapter["lessons"]:
+            progress = lesson_progress_map.get(lesson["id"])
             is_completed = progress.is_completed if progress else False
             
             if is_completed:
                 completed_lessons += 1
                 
             lesson_data = {
-                "id": lesson.id,
-                "title": lesson.title,
-                "order": lesson.order,
-                "lesson_type": lesson.lesson_type.value,
+                **lesson,
                 "is_completed": is_completed,
                 "progress_percentage": 100.0 if is_completed else 0.0
             }
             chapter_lessons.append(lesson_data)
         
-        # Calculate chapter progress
         total_lessons = len(chapter_lessons)
         chapter_progress = (completed_lessons / total_lessons) * 100 if total_lessons > 0 else 0.0
         
         chapter_data = {
-            "id": chapter.id,
-            "title": chapter.title,
-            "order": chapter.order,
+            **chapter,
             "progress_percentage": chapter_progress,
             "lessons": chapter_lessons
         }
@@ -162,96 +202,132 @@ async def get_lesson_content(
     user: User = Depends(get_user_from_headers)
 ):
     """Get lesson content with words and progress"""
-    lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
-    if not lesson:
-        raise HTTPException(status_code=404, detail="Lesson not found")
+    # Try cache first for lesson content (without progress)
+    cache_key = f"lesson_content_{lesson_id}"
+    cached_content = cache.get(cache_key)
     
-    words = db.query(Word).filter(Word.lesson_id == lesson_id).all()
-    stories = db.query(Story).options(joinedload(Story.subtitles)).filter(Story.lesson_id == lesson_id).all()
+    if not cached_content:
+        # Load from DB and cache
+        lesson = db.query(Lesson).filter(Lesson.id == lesson_id).first()
+        if not lesson:
+            raise HTTPException(status_code=404, detail="Lesson not found")
+        
+        words = db.query(Word).filter(Word.lesson_id == lesson_id).all()
+        stories = db.query(Story).options(joinedload(Story.subtitles)).filter(Story.lesson_id == lesson_id).all()
+        
+        # Get all word lesson IDs referenced by stories to fetch their words
+        story_word_lesson_ids = [story.word_lesson_id for story in stories if story.word_lesson_id]
+        story_words = []
+        if story_word_lesson_ids:
+            story_words = db.query(Word).filter(Word.lesson_id.in_(story_word_lesson_ids)).all()
+        
+        # Create word lookup by lesson_id for stories
+        story_words_by_lesson = {}
+        for word in story_words:
+            if word.lesson_id not in story_words_by_lesson:
+                story_words_by_lesson[word.lesson_id] = []
+            story_words_by_lesson[word.lesson_id].append(word)
+        
+        # Build cacheable content (without progress)
+        cached_content = {
+            "lesson": {
+                "id": lesson.id,
+                "title": lesson.title,
+                "lesson_type": lesson.lesson_type.value,
+                "content": lesson.content
+            },
+            "words": [
+                {
+                    "id": word.id,
+                    "word": word.word,
+                    "translation": word.translation,
+                    "audio_url": word.audio_url,
+                    "image_url": word.image_url,
+                    "example_sentence": word.example_sentence,
+                    "example_audio": word.example_audio
+                }
+                for word in words
+            ],
+            "stories": [
+                {
+                    "id": story.id,
+                    "story_text": story.story_text,
+                    "audio_url": story.audio_url,
+                    "word_lesson_id": story.word_lesson_id,
+                    "words": [
+                        {
+                            "id": word.id,
+                            "word": word.word,
+                            "translation": word.translation,
+                            "audio_url": word.audio_url,
+                            "image_url": word.image_url,
+                            "example_sentence": word.example_sentence,
+                            "example_audio": word.example_audio
+                        }
+                        for word in story_words_by_lesson.get(story.word_lesson_id, [])
+                    ] if story.word_lesson_id else [],
+                    "subtitles": [
+                        {
+                            "id": subtitle.id,
+                            "text": subtitle.text,
+                            "start_audio": subtitle.start_audio,
+                            "end_audio": subtitle.end_audio,
+                            "start_position": subtitle.start_position,
+                            "end_position": subtitle.end_position
+                        }
+                        for subtitle in story.subtitles
+                    ]
+                }
+                for story in stories
+            ]
+        }
+        
+        cache.set(cache_key, cached_content)
     
-    # Get all word lesson IDs referenced by stories to fetch their words
-    story_word_lesson_ids = [story.word_lesson_id for story in stories if story.word_lesson_id]
-    story_words = []
-    if story_word_lesson_ids:
-        story_words = db.query(Word).filter(Word.lesson_id.in_(story_word_lesson_ids)).all()
+    # Always fetch fresh progress data
+    all_word_ids = [w["id"] for w in cached_content["words"]]
+    for story in cached_content["stories"]:
+        all_word_ids.extend([w["id"] for w in story["words"]])
     
-    # Get word progress for this user (both lesson words and story-referenced words)
-    all_word_ids = [w.id for w in words] + [w.id for w in story_words]
     word_progress = db.query(UserWordProgress).filter(
         UserWordProgress.user_id == user.id,
         UserWordProgress.word_id.in_(all_word_ids)
     ).all() if all_word_ids else []
     
-    # Create word progress lookup
     word_progress_map = {wp.word_id: wp for wp in word_progress}
     
-    # Create word lookup by lesson_id for stories
-    story_words_by_lesson = {}
-    for word in story_words:
-        if word.lesson_id not in story_words_by_lesson:
-            story_words_by_lesson[word.lesson_id] = []
-        story_words_by_lesson[word.lesson_id].append(word)
-    
-    return {
-        "lesson": {
-            "id": lesson.id,
-            "title": lesson.title,
-            "lesson_type": lesson.lesson_type.value,
-            "content": lesson.content
-        },
+    # Merge cached content with fresh progress
+    result = {
+        "lesson": cached_content["lesson"],
         "words": [
             {
-                "id": word.id,
-                "word": word.word,
-                "translation": word.translation,
-                "audio_url": word.audio_url,
-                "image_url": word.image_url,
-                "example_sentence": word.example_sentence,
-                "example_audio": word.example_audio,
+                **word,
                 "progress": {
-                    "is_learned": word_progress_map[word.id].is_learned if word.id in word_progress_map else False,
-                    "last_5_results": word_progress_map[word.id].last_5_results if word.id in word_progress_map else ""
-                } if word.id in word_progress_map else None
+                    "is_learned": word_progress_map[word["id"]].is_learned if word["id"] in word_progress_map else False,
+                    "last_5_results": word_progress_map[word["id"]].last_5_results if word["id"] in word_progress_map else ""
+                } if word["id"] in word_progress_map else None
             }
-            for word in words
+            for word in cached_content["words"]
         ],
         "stories": [
             {
-                "id": story.id,
-                "story_text": story.story_text,
-                "audio_url": story.audio_url,
-                "word_lesson_id": story.word_lesson_id,
+                **story,
                 "words": [
                     {
-                        "id": word.id,
-                        "word": word.word,
-                        "translation": word.translation,
-                        "audio_url": word.audio_url,
-                        "image_url": word.image_url,
-                        "example_sentence": word.example_sentence,
-                        "example_audio": word.example_audio,
+                        **word,
                         "progress": {
-                            "is_learned": word_progress_map[word.id].is_learned if word.id in word_progress_map else False,
-                            "last_5_results": word_progress_map[word.id].last_5_results if word.id in word_progress_map else ""
-                        } if word.id in word_progress_map else None
+                            "is_learned": word_progress_map[word["id"]].is_learned if word["id"] in word_progress_map else False,
+                            "last_5_results": word_progress_map[word["id"]].last_5_results if word["id"] in word_progress_map else ""
+                        } if word["id"] in word_progress_map else None
                     }
-                    for word in story_words_by_lesson.get(story.word_lesson_id, [])
-                ] if story.word_lesson_id else [],
-                "subtitles": [
-                    {
-                        "id": subtitle.id,
-                        "text": subtitle.text,
-                        "start_audio": subtitle.start_audio,
-                        "end_audio": subtitle.end_audio,
-                        "start_position": subtitle.start_position,
-                        "end_position": subtitle.end_position
-                    }
-                    for subtitle in story.subtitles
+                    for word in story["words"]
                 ]
             }
-            for story in stories
+            for story in cached_content["stories"]
         ]
     }
+    
+    return result
 
 
 
@@ -365,3 +441,13 @@ async def complete_quiz(
         "words_updated": words_updated,
         "message": "Quiz completed successfully"
     }
+
+
+@router.delete("/cache/clear")
+async def clear_cache():
+    """Manually clear all cache"""
+    try:
+        cache.clear_all()
+        return {"message": "All cache cleared successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to clear cache: {str(e)}")
