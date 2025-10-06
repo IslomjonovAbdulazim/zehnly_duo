@@ -24,6 +24,9 @@ class StorageService:
         logger.info(f"📄 File name: {file.filename}")
         return await self._save_file(file, "audio", f"lesson_{lesson_id}")
     
+    async def save_image(self, file: UploadFile, word_id: int) -> str:
+        return await self._save_file(file, "images", f"word_{word_id}")
+    
     async def _save_file(self, file: UploadFile, subdirectory: str, prefix: str) -> str:
         logger = logging.getLogger(__name__)
         logger.info(f"💾 _save_file called: subdirectory={subdirectory}, prefix={prefix}")
