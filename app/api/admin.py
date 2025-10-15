@@ -6,6 +6,8 @@ from ..database import get_db
 from ..auth import verify_admin_token, login_admin, AdminLogin, AdminToken
 from ..models.content import Course, Chapter, Lesson, CourseCreate, CourseUpdate, ChapterCreate, ChapterUpdate, LessonCreate, LessonUpdate, CourseResponse, ChapterResponse, LessonResponse
 from ..models.lesson_content import Word, Story, Subtitle, WordCreate, WordUpdate, StoryCreate, StoryUpdate, WordResponse, StoryResponse, SubtitleResponse
+from ..models.progress import UserCourseProgress, UserLessonProgress, CourseStatsResponse, CourseDetailStatsResponse, StudentStatsResponse, CourseStatsOverview, CourseDetailStats
+from ..models.user import User
 from ..services.storage import storage_service
 from ..services.narakeet import narakeet_service
 from ..services.whisper import whisper_service
@@ -659,6 +661,76 @@ async def upload_word_image(
     db.commit()
     
     return {"message": "Image uploaded successfully", "image_url": image_url}
+
+
+# Stats endpoints
+@router.get("/stats/courses", response_model=CourseStatsResponse)
+async def get_courses_stats(
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    courses_with_stats = []
+    courses = db.query(Course).all()
+    
+    for course in courses:
+        student_count = db.query(UserCourseProgress).filter(
+            UserCourseProgress.course_id == course.id
+        ).count()
+        
+        courses_with_stats.append(CourseStatsOverview(
+            course_id=course.id,
+            course_title=course.title,
+            total_students=student_count
+        ))
+    
+    return CourseStatsResponse(courses=courses_with_stats)
+
+
+@router.get("/stats/courses/{course_id}", response_model=CourseDetailStatsResponse)
+async def get_course_stats(
+    course_id: int,
+    db: Session = Depends(get_db),
+    admin: str = Depends(verify_admin_token)
+):
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Course not found")
+    
+    users_with_progress = db.query(
+        User.id,
+        User.first_name,
+        User.last_name,
+        User.phone_number,
+        db.func.count(UserLessonProgress.id).label('lessons_completed')
+    ).join(
+        UserCourseProgress, User.id == UserCourseProgress.user_id
+    ).outerjoin(
+        UserLessonProgress, 
+        (User.id == UserLessonProgress.user_id) & 
+        (UserLessonProgress.course_id == course_id) &
+        (UserLessonProgress.is_completed == True)
+    ).filter(
+        UserCourseProgress.course_id == course_id
+    ).group_by(
+        User.id, User.first_name, User.last_name, User.phone_number
+    ).order_by(
+        db.func.count(UserLessonProgress.id).desc()
+    ).all()
+    
+    students = []
+    for user_data in users_with_progress:
+        students.append(StudentStatsResponse(
+            user_id=user_data.id,
+            full_name=f"{user_data.first_name} {user_data.last_name}",
+            phone_number=user_data.phone_number,
+            lessons_completed=user_data.lessons_completed
+        ))
+    
+    return CourseDetailStatsResponse(
+        course_info=CourseDetailStats(id=course.id, title=course.title),
+        total_students=len(students),
+        students=students
+    )
 
 
 # Helper function to save audio data to storage

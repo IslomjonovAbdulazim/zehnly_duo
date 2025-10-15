@@ -93,3 +93,31 @@ class WordProgressResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+
+class StudentStatsResponse(BaseModel):
+    user_id: int
+    full_name: str
+    phone_number: Optional[str] = None
+    lessons_completed: int
+
+
+class CourseStatsOverview(BaseModel):
+    course_id: int
+    course_title: str
+    total_students: int
+
+
+class CourseStatsResponse(BaseModel):
+    courses: list[CourseStatsOverview]
+
+
+class CourseDetailStats(BaseModel):
+    id: int
+    title: str
+
+
+class CourseDetailStatsResponse(BaseModel):
+    course_info: CourseDetailStats
+    total_students: int
+    students: list[StudentStatsResponse]

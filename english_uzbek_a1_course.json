@@ -1,0 +1,341 @@
+{
+  "course": {
+    "title": "English for Uzbek Speakers - A1 Level",
+    "native_language": "Uzbek",
+    "learning_language": "English",
+    "level": "A1",
+    "description": "Complete beginner English course for Uzbek speakers with real-life vocabulary and practical situations"
+  },
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Basic Greetings & Personal Information",
+      "order": 1,
+      "description": "Essential greetings, introductions, and personal details",
+      "lessons": [
+        {
+          "order": 1,
+          "title": "Greetings & Politeness",
+          "type": "word",
+          "content": "Learn essential greetings and polite expressions for daily interactions",
+          "words": [
+            {"word": "hello", "translation": "salom", "example": "Hello! How are you today?"},
+            {"word": "goodbye", "translation": "xayr", "example": "Goodbye! See you tomorrow."},
+            {"word": "please", "translation": "iltimos", "example": "Can you help me, please?"},
+            {"word": "thank you", "translation": "rahmat", "example": "Thank you for your help."},
+            {"word": "sorry", "translation": "kechirasiz", "example": "Sorry, I am late."},
+            {"word": "excuse me", "translation": "uzr so'rayman", "example": "Excuse me, where is the bank?"},
+            {"word": "good morning", "translation": "xayrli tong", "example": "Good morning! Did you sleep well?"},
+            {"word": "good evening", "translation": "xayrli kech", "example": "Good evening! How was your day?"},
+            {"word": "good night", "translation": "xayrli tun", "example": "Good night! Sleep well."},
+            {"word": "nice", "translation": "yoqimli", "example": "Nice to meet you!"},
+            {"word": "meet", "translation": "uchrashmoq", "example": "I want to meet new friends."},
+            {"word": "welcome", "translation": "xush kelibsiz", "example": "Welcome to our home!"}
+          ]
+        },
+        {
+          "order": 2,
+          "title": "Meeting New People",
+          "type": "story",
+          "content": "Practice greetings and introductions through a real-life scenario",
+          "story": {
+            "title": "At the Coffee Shop",
+            "text": "Hello! My name is Jasur. Nice to meet you! Every morning, I go to a coffee shop near my home. I always say good morning to the worker there. When I meet new people, I say hello and ask about their day. The people are very nice and friendly. In the evening, when I leave, I say goodbye and thank you. Everyone smiles and says good night. It makes me happy to be polite and kind to others."
+          }
+        },
+        {
+          "order": 3,
+          "title": "Greetings Test",
+          "type": "test",
+          "content": "Test your knowledge of greetings and polite expressions"
+        },
+        {
+          "order": 4,
+          "title": "Personal Information",
+          "type": "word",
+          "content": "Learn to talk about yourself and ask about others",
+          "words": [
+            {"word": "name", "translation": "ism", "example": "My name is Aziza."},
+            {"word": "age", "translation": "yosh", "example": "I am 25 years old."},
+            {"word": "live", "translation": "yashash", "example": "I live in Tashkent."},
+            {"word": "work", "translation": "ishlash", "example": "I work in an office."},
+            {"word": "student", "translation": "talaba", "example": "I am a student at university."},
+            {"word": "teacher", "translation": "o'qituvchi", "example": "She is an English teacher."},
+            {"word": "doctor", "translation": "shifokor", "example": "My father is a doctor."},
+            {"word": "from", "translation": "dan", "example": "I am from Uzbekistan."},
+            {"word": "country", "translation": "mamlakat", "example": "Uzbekistan is a beautiful country."},
+            {"word": "city", "translation": "shahar", "example": "Tashkent is a big city."},
+            {"word": "address", "translation": "manzil", "example": "What is your home address?"},
+            {"word": "phone", "translation": "telefon", "example": "My phone number is 123-456."}
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Introducing Yourself",
+          "type": "story",
+          "content": "Practice personal information in a conversation",
+          "story": {
+            "title": "New Job Interview",
+            "text": "Hello, my name is Dilfuza and I am 22 years old. I live in Samarkand, a beautiful city in Uzbekistan. I am from a small village, but now I work and study in the city. I am a student at the university, and I also work part-time in a library. My address is on Rudaki Street, near the old bazaar. My phone number is easy to remember. I love my country and my city very much. I want to learn English to meet people from other countries and share stories about Uzbekistan."
+          }
+        },
+        {
+          "order": 6,
+          "title": "Personal Information Test",
+          "type": "test",
+          "content": "Test your ability to share and ask about personal information"
+        },
+        {
+          "order": 7,
+          "title": "Family & Relationships",
+          "type": "word",
+          "content": "Learn to talk about family members and relationships",
+          "words": [
+            {"word": "family", "translation": "oila", "example": "I love my family very much."},
+            {"word": "mother", "translation": "ona", "example": "My mother cooks delicious food."},
+            {"word": "father", "translation": "ota", "example": "My father works hard every day."},
+            {"word": "sister", "translation": "opa/singil", "example": "My sister is very smart."},
+            {"word": "brother", "translation": "aka/uka", "example": "My brother plays football."},
+            {"word": "grandmother", "translation": "buva", "example": "My grandmother tells great stories."},
+            {"word": "grandfather", "translation": "bobo", "example": "My grandfather is very wise."},
+            {"word": "husband", "translation": "er", "example": "Her husband is a kind man."},
+            {"word": "wife", "translation": "xotin", "example": "His wife is a teacher."},
+            {"word": "child", "translation": "bola", "example": "They have one child."},
+            {"word": "baby", "translation": "chaqaloq", "example": "The baby is very cute."},
+            {"word": "friend", "translation": "do'st", "example": "Ali is my best friend."}
+          ]
+        },
+        {
+          "order": 8,
+          "title": "My Family",
+          "type": "story",
+          "content": "Learn about family relationships through a personal story",
+          "story": {
+            "title": "My Big Family",
+            "text": "I have a big and happy family! My mother and father are the best parents in the world. My mother works as a teacher, and my father is a doctor. I have one older sister and one younger brother. My sister is married and has a baby - my little nephew! My brother is still a student like me. We also live with my grandmother and grandfather. My grandmother makes the best plov in the neighborhood, and my grandfather always has funny stories to tell us. Every Friday, all the family comes together for dinner. We talk, laugh, and share our week. I love my family because they always support me and make me feel happy and safe."
+          }
+        },
+        {
+          "order": 9,
+          "title": "Family Test",
+          "type": "test",
+          "content": "Test your knowledge of family vocabulary and relationships"
+        },
+        {
+          "order": 10,
+          "title": "Numbers & Time",
+          "type": "word",
+          "content": "Learn basic numbers and time expressions",
+          "words": [
+            {"word": "one", "translation": "bir", "example": "I have one brother."},
+            {"word": "two", "translation": "ikki", "example": "There are two cats in the yard."},
+            {"word": "three", "translation": "uch", "example": "I eat three meals every day."},
+            {"word": "four", "translation": "to'rt", "example": "My family has four people."},
+            {"word": "five", "translation": "besh", "example": "I wake up at five o'clock."},
+            {"word": "ten", "translation": "o'n", "example": "I have ten fingers."},
+            {"word": "time", "translation": "vaqt", "example": "What time is it now?"},
+            {"word": "hour", "translation": "soat", "example": "One hour has sixty minutes."},
+            {"word": "minute", "translation": "daqiqa", "example": "Wait five minutes, please."},
+            {"word": "today", "translation": "bugun", "example": "Today is a beautiful day."},
+            {"word": "tomorrow", "translation": "ertaga", "example": "Tomorrow I will visit my friend."},
+            {"word": "yesterday", "translation": "kecha", "example": "Yesterday was very busy."}
+          ]
+        },
+        {
+          "order": 11,
+          "title": "Daily Schedule",
+          "type": "story",
+          "content": "Practice numbers and time in daily routine",
+          "story": {
+            "title": "My Daily Routine",
+            "text": "Every day I have the same routine. I wake up at six o'clock in the morning and drink one cup of tea. At seven o'clock, I eat breakfast with my family. We usually have bread, cheese, and two or three different fruits. At eight o'clock, I go to work. I work for eight hours every day, from nine to five. At twelve o'clock, I have lunch with my colleagues for one hour. In the evening, I go home and spend time with my family. At ten o'clock, I go to bed. Yesterday was the same, and tomorrow will be the same too. I like my routine because it gives me time for work, family, and rest."
+          }
+        },
+        {
+          "order": 12,
+          "title": "Numbers & Time Test",
+          "type": "test",
+          "content": "Test your knowledge of numbers and time expressions"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Daily Life & Basic Needs",
+      "order": 2,
+      "description": "Essential vocabulary for daily activities, food, and basic needs",
+      "lessons": [
+        {
+          "order": 1,
+          "title": "Food & Drinks",
+          "type": "word",
+          "content": "Learn essential food and drink vocabulary for daily meals",
+          "words": [
+            {"word": "food", "translation": "ovqat", "example": "I love Uzbek food very much."},
+            {"word": "water", "translation": "suv", "example": "I drink water every day."},
+            {"word": "bread", "translation": "non", "example": "Fresh bread smells wonderful."},
+            {"word": "rice", "translation": "guruch", "example": "We eat rice with vegetables."},
+            {"word": "meat", "translation": "go'sht", "example": "This meat is very delicious."},
+            {"word": "fruit", "translation": "meva", "example": "Apples are my favorite fruit."},
+            {"word": "vegetable", "translation": "sabzavot", "example": "Green vegetables are healthy."},
+            {"word": "milk", "translation": "sut", "example": "Children need milk to grow."},
+            {"word": "tea", "translation": "choy", "example": "We drink green tea after dinner."},
+            {"word": "hungry", "translation": "och", "example": "I am hungry for lunch."},
+            {"word": "thirsty", "translation": "chanqagan", "example": "I am thirsty, I need water."},
+            {"word": "delicious", "translation": "mazali", "example": "This plov is very delicious!"}
+          ]
+        },
+        {
+          "order": 2,
+          "title": "At the Bazaar",
+          "type": "story",
+          "content": "Practice food vocabulary while shopping at the market",
+          "story": {
+            "title": "Shopping for Dinner",
+            "text": "Today I go to the bazaar to buy food for dinner. I am very hungry, so I want to cook something delicious. First, I buy fresh bread from the baker. The bread smells wonderful! Then I go to buy vegetables - tomatoes, onions, and carrots. The seller gives me the best ones. Next, I buy one kilogram of meat for plov. I also buy rice and some spices. I am thirsty, so I drink some water and green tea at a small cafe in the bazaar. Finally, I buy fresh fruit - apples and grapes for dessert. When I get home, I will cook a big dinner for my family. Everyone will be happy with this delicious food!"
+          }
+        },
+        {
+          "order": 3,
+          "title": "Food & Drinks Test",
+          "type": "test",
+          "content": "Test your knowledge of food and drink vocabulary"
+        },
+        {
+          "order": 4,
+          "title": "Clothing & Weather",
+          "type": "word",
+          "content": "Learn clothing items and weather descriptions",
+          "words": [
+            {"word": "clothes", "translation": "kiyim", "example": "I need new clothes for winter."},
+            {"word": "shirt", "translation": "ko'ylak", "example": "This blue shirt looks nice."},
+            {"word": "dress", "translation": "ko'ylak", "example": "She wears a beautiful dress."},
+            {"word": "shoes", "translation": "poyafzal", "example": "These shoes are very comfortable."},
+            {"word": "hat", "translation": "shlyapa", "example": "I wear a hat in the sun."},
+            {"word": "coat", "translation": "palto", "example": "It's cold, I need my coat."},
+            {"word": "hot", "translation": "issiq", "example": "Today is very hot."},
+            {"word": "cold", "translation": "sovuq", "example": "Winter is cold in Tashkent."},
+            {"word": "warm", "translation": "iliq", "example": "Spring weather is warm and nice."},
+            {"word": "sun", "translation": "quyosh", "example": "The sun shines brightly today."},
+            {"word": "rain", "translation": "yomg'ir", "example": "Plants need rain to grow."},
+            {"word": "weather", "translation": "ob-havo", "example": "Today the weather is perfect."}
+          ]
+        },
+        {
+          "order": 5,
+          "title": "Getting Dressed",
+          "type": "story",
+          "content": "Practice clothing and weather vocabulary in daily routine",
+          "story": {
+            "title": "Preparing for the Day",
+            "text": "Every morning, I look outside to check the weather before I choose my clothes. Today the sun is shining, but it looks a little cold. I decide to wear my warm blue shirt and comfortable shoes. I also take my coat because the weather can change quickly in spring. My sister wears a beautiful dress and a light hat. She always looks nice! When we go outside, the weather is perfect - not too hot and not too cold. The sun makes everything bright and happy. In the evening, when we come home, we change into comfortable clothes. Tomorrow, if it rains, we will wear different clothes. I love how clothes help us feel good in any weather!"
+          }
+        },
+        {
+          "order": 6,
+          "title": "Clothing & Weather Test",
+          "type": "test",
+          "content": "Test your knowledge of clothing and weather vocabulary"
+        },
+        {
+          "order": 7,
+          "title": "Home & Rooms",
+          "type": "word",
+          "content": "Learn vocabulary about home and different rooms",
+          "words": [
+            {"word": "home", "translation": "uy", "example": "I love being at home with family."},
+            {"word": "house", "translation": "uy", "example": "Our house has a beautiful garden."},
+            {"word": "room", "translation": "xona", "example": "My room has a big window."},
+            {"word": "kitchen", "translation": "oshxona", "example": "We cook all meals in the kitchen."},
+            {"word": "bedroom", "translation": "yotoq xona", "example": "I sleep in my comfortable bedroom."},
+            {"word": "bathroom", "translation": "hammom", "example": "The bathroom has hot water."},
+            {"word": "door", "translation": "eshik", "example": "Please close the door quietly."},
+            {"word": "window", "translation": "deraza", "example": "I open the window for fresh air."},
+            {"word": "table", "translation": "stol", "example": "We eat dinner at this table."},
+            {"word": "chair", "translation": "stul", "example": "This chair is very comfortable."},
+            {"word": "bed", "translation": "karavot", "example": "My bed is soft and warm."},
+            {"word": "clean", "translation": "toza", "example": "I keep my room clean and tidy."}
+          ]
+        },
+        {
+          "order": 8,
+          "title": "My Home",
+          "type": "story",
+          "content": "Explore home vocabulary through a house tour",
+          "story": {
+            "title": "Welcome to My House",
+            "text": "Welcome to my home! Let me show you around. When you come through the front door, you enter our living room. It has comfortable chairs and a big table where we eat together. The kitchen is next to the living room. My mother cooks delicious food there every day. We have three bedrooms in our house. My room has a soft bed and a desk near the window. I love to read there when the sun comes in. The bathroom has everything we need and is always clean. We also have a small garden behind the house where we grow vegetables and flowers. I love my home because it's comfortable, clean, and full of love. Every room has special memories with my family."
+          }
+        },
+        {
+          "order": 9,
+          "title": "Home & Rooms Test",
+          "type": "test",
+          "content": "Test your knowledge of home and room vocabulary"
+        },
+        {
+          "order": 10,
+          "title": "Transportation & Places",
+          "type": "word",
+          "content": "Learn about transportation and common places in the city",
+          "words": [
+            {"word": "car", "translation": "mashina", "example": "My father drives a white car."},
+            {"word": "bus", "translation": "avtobus", "example": "I take the bus to work every day."},
+            {"word": "taxi", "translation": "taksi", "example": "We called a taxi to go to the airport."},
+            {"word": "walk", "translation": "piyoda yurish", "example": "I like to walk in the park."},
+            {"word": "street", "translation": "ko'cha", "example": "Our street is very quiet and safe."},
+            {"word": "shop", "translation": "do'kon", "example": "There's a bread shop near my house."},
+            {"word": "school", "translation": "maktab", "example": "Children learn many things at school."},
+            {"word": "hospital", "translation": "kasalxona", "example": "Doctors work at the hospital."},
+            {"word": "bank", "translation": "bank", "example": "I need to go to the bank today."},
+            {"word": "park", "translation": "bog'", "example": "We play football in the park."},
+            {"word": "market", "translation": "bozor", "example": "Fresh vegetables are sold at the market."},
+            {"word": "near", "translation": "yaqin", "example": "The school is near my house."}
+          ]
+        },
+        {
+          "order": 11,
+          "title": "Around the City",
+          "type": "story",
+          "content": "Practice transportation and places vocabulary in city life",
+          "story": {
+            "title": "A Day in the City",
+            "text": "Today I have many places to visit in the city. First, I walk to the bus stop near my house. I take the bus to the bank to get some money. The bank is on a busy street with many shops. After the bank, I walk to the market to buy fresh vegetables and fruit. The market is always full of people and has everything we need. Then I take a taxi to visit my friend who works at the hospital. She is a nurse and helps many people every day. In the evening, we walk together in the beautiful park near the hospital. Many families come to this park with their children. Finally, I take the bus home. I love living in the city because everything I need is near my house!"
+          }
+        },
+        {
+          "order": 12,
+          "title": "Transportation & Places Test",
+          "type": "test",
+          "content": "Test your knowledge of transportation and places vocabulary"
+        }
+      ]
+    }
+  ],
+  "future_chapters_plan": {
+    "chapter_3": {
+      "title": "Health & Body",
+      "topics": ["Body parts", "Health problems", "At the doctor", "Sports & exercise"]
+    },
+    "chapter_4": {
+      "title": "Work & Education", 
+      "topics": ["Jobs & professions", "At the office", "School subjects", "Learning English"]
+    },
+    "chapter_5": {
+      "title": "Hobbies & Free Time",
+      "topics": ["Sports & games", "Music & entertainment", "Reading & movies", "Weekend activities"]
+    },
+    "chapter_6": {
+      "title": "Shopping & Money",
+      "topics": ["At the store", "Prices & money", "Buying clothes", "Restaurants & cafes"]
+    },
+    "chapter_7": {
+      "title": "Travel & Holidays",
+      "topics": ["Planning trips", "At the hotel", "Sightseeing", "National holidays"]
+    },
+    "chapter_8": {
+      "title": "Communication & Technology",
+      "topics": ["Phone calls", "Internet & email", "Social media", "Asking for help"]
+    }
+  }
+}
