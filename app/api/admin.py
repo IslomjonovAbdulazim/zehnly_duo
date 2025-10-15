@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from typing import List, Optional
 import logging
 from ..database import get_db
@@ -701,7 +702,7 @@ async def get_course_stats(
         User.first_name,
         User.last_name,
         User.phone_number,
-        db.func.count(UserLessonProgress.id).label('lessons_completed')
+        func.count(UserLessonProgress.id).label('lessons_completed')
     ).join(
         UserCourseProgress, User.id == UserCourseProgress.user_id
     ).outerjoin(
@@ -714,7 +715,7 @@ async def get_course_stats(
     ).group_by(
         User.id, User.first_name, User.last_name, User.phone_number
     ).order_by(
-        db.func.count(UserLessonProgress.id).desc()
+        func.count(UserLessonProgress.id).desc()
     ).all()
     
     students = []
