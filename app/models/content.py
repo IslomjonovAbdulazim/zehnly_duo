@@ -51,6 +51,7 @@ class Lesson(Base):
     content = Column(Text, nullable=True)
     lesson_type = Column(Enum(LessonType), nullable=False, default=LessonType.WORD, index=True)
     word_lesson_id = Column(Integer, ForeignKey("lessons.id", ondelete="CASCADE"), nullable=True, index=True)
+    emoji = Column(String, nullable=True)
     
     chapter = relationship("Chapter", back_populates="lessons")
     words = relationship("Word", back_populates="lesson")
@@ -96,6 +97,7 @@ class LessonCreate(BaseModel):
     content: Optional[str] = None
     lesson_type: LessonType = LessonType.WORD
     word_lesson_id: Optional[int] = None
+    emoji: Optional[str] = None
 
 
 class LessonUpdate(BaseModel):
@@ -104,6 +106,7 @@ class LessonUpdate(BaseModel):
     content: Optional[str] = None
     lesson_type: Optional[LessonType] = None
     word_lesson_id: Optional[int] = None
+    emoji: Optional[str] = None
 
 
 class CourseResponse(BaseModel):
@@ -135,6 +138,7 @@ class LessonResponse(BaseModel):
     content: Optional[str] = None
     lesson_type: LessonType
     word_lesson_id: Optional[int] = None
+    emoji: Optional[str] = None
     
     class Config:
         from_attributes = True

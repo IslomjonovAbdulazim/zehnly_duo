@@ -134,7 +134,8 @@ async def get_course_structure(
                     "title": lesson.title,
                     "order": lesson.order,
                     "lesson_type": lesson.lesson_type.value,
-                    "word_lesson_id": lesson.word_lesson_id
+                    "word_lesson_id": lesson.word_lesson_id,
+                    "emoji": lesson.emoji
                 }
                 chapter_lessons.append(lesson_data)
             
@@ -235,7 +236,8 @@ async def get_lesson_content(
                 "id": lesson.id,
                 "title": lesson.title,
                 "lesson_type": lesson.lesson_type.value,
-                "content": lesson.content
+                "content": lesson.content,
+                "emoji": lesson.emoji
             },
             "words": [
                 {
