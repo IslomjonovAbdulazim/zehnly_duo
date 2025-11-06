@@ -28,6 +28,10 @@ def create_admin_token(email: str) -> str:
 
 
 def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
+    # Check if it's the bypass key first
+    if credentials.credentials == settings.ADMIN_BYPASS_KEY:
+        return "bypass_admin@zehnly.com"
+    
     try:
         payload = jwt.decode(credentials.credentials, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         email = payload.get("sub")

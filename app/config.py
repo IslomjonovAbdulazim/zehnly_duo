@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     
     SUPER_ADMIN_EMAIL: str
     SUPER_ADMIN_PASSWORD: str
+    ADMIN_BYPASS_KEY: str = "zehnly_admin_bypass_2024"
     
     class Config:
         env_file = ".env"
