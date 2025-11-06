@@ -27,7 +27,7 @@ def create_admin_token(email: str) -> str:
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
-def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
+def verify_admin_token() -> str:
     return "admin@example.com"
 
 
