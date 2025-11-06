@@ -13,7 +13,7 @@ app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "https://www.fatiha.uz", "https://fatiha.uz"],
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "https://www.fatiha.uz", "https://fatiha.uz", "https://duo-annj.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

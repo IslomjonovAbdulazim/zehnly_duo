@@ -1,0 +1,479 @@
+{
+  "course": {
+    "title": "New Topics for Word Battle!",
+    "native_language": "Uzbek",
+    "learning_language": "English"
+  },
+  "chapters": [
+    {
+      "title": "Nature & Sports Adventures",
+      "order": 1,
+      "lessons": [
+        {
+          "title": "Nature Words",
+          "order": 1,
+          "type": "word",
+          "content": "Learn about nature",
+          "words": [
+            {"word": "tree", "translation": "daraxt", "example": "The old oak tree provides shade in the park."},
+            {"word": "mountain", "translation": "tog'", "example": "We climbed the tall mountain last summer."},
+            {"word": "river", "translation": "daryo", "example": "The river flows gently through the valley."},
+            {"word": "forest", "translation": "o'rmon", "example": "The forest is full of beautiful wildlife."},
+            {"word": "flower", "translation": "gul", "example": "She picked a beautiful flower from the garden."},
+            {"word": "lake", "translation": "ko'l", "example": "The lake water was crystal clear and peaceful."},
+            {"word": "ocean", "translation": "okean", "example": "The ocean waves crashed against the shore."},
+            {"word": "sky", "translation": "osmon", "example": "The sky was bright blue with white clouds."},
+            {"word": "desert", "translation": "cho'l", "example": "The desert is very hot during the day."},
+            {"word": "island", "translation": "orol", "example": "We took a boat to the tropical island."},
+            {"word": "valley", "translation": "vodiy", "example": "The green valley stretched for miles."},
+            {"word": "hill", "translation": "tepalik", "example": "We walked up the small hill to see the view."},
+            {"word": "waterfall", "translation": "sharshara", "example": "The waterfall made a loud roaring sound."},
+            {"word": "meadow", "translation": "o'tloq", "example": "Cows were grazing in the peaceful meadow."},
+            {"word": "grass", "translation": "o't", "example": "The grass was green and soft under our feet."},
+            {"word": "cloud", "translation": "bulut", "example": "A dark cloud covered the sun."},
+            {"word": "rock", "translation": "tosh", "example": "He threw a small rock into the pond."},
+            {"word": "leaf", "translation": "barg", "example": "The autumn leaf was bright red and orange."},
+            {"word": "sand", "translation": "qum", "example": "The beach sand was warm and golden."},
+            {"word": "wind", "translation": "shamol", "example": "The wind blew gently through the trees."}
+          ]
+        },
+        {
+          "title": "Adventure in the Forest",
+          "order": 2,
+          "type": "story",
+          "content": "A story about exploring nature",
+          "story": {
+            "title": "Adventure in the Forest",
+            "text": "Emma loves nature and exploring outdoors. Today she walks through the forest to climb the mountain. The wind blows through the trees and flowers smell sweet in the meadow. She sits on a rock by the river and looks at the blue sky. White clouds float above the green valley. The grass feels soft under her feet. This peaceful island makes her very happy."
+          }
+        },
+        {
+          "title": "Nature Test",
+          "order": 3,
+          "type": "test",
+          "content": "Test your knowledge of nature words"
+        },
+        {
+          "title": "Sports Words",
+          "order": 4,
+          "type": "word",
+          "content": "Learn about sports activities",
+          "words": [
+            {"word": "run", "translation": "yugurmoq", "example": "I run every morning to stay healthy."},
+            {"word": "jump", "translation": "sakramoq", "example": "The athlete can jump very high."},
+            {"word": "swim", "translation": "suzmoq", "example": "Children love to swim in the pool during summer."},
+            {"word": "kick", "translation": "tepmoq", "example": "The soccer player will kick the ball into the goal."},
+            {"word": "throw", "translation": "otmoq", "example": "He can throw the ball very far."},
+            {"word": "catch", "translation": "tutmoq", "example": "Try to catch the ball with both hands."},
+            {"word": "hit", "translation": "urmoq", "example": "The baseball player will hit the ball with the bat."},
+            {"word": "score", "translation": "gol urmoq", "example": "Our team managed to score three goals."},
+            {"word": "train", "translation": "mashq qilmoq", "example": "Athletes train every day to improve their skills."},
+            {"word": "compete", "translation": "raqobatlashmoq", "example": "Many countries compete in the Olympic Games."},
+            {"word": "practice", "translation": "amaliyot qilmoq", "example": "She needs to practice piano every day."},
+            {"word": "win", "translation": "g'alaba qozonmoq", "example": "Our team worked hard to win the championship."},
+            {"word": "lose", "translation": "yutqazmoq", "example": "Sometimes you win, sometimes you lose."},
+            {"word": "exercise", "translation": "jismoniy mashq", "example": "Regular exercise is important for good health."},
+            {"word": "stretch", "translation": "cho'zmoq", "example": "Always stretch before doing sports activities."},
+            {"word": "race", "translation": "poyga", "example": "The running race will start at 3 PM."},
+            {"word": "dive", "translation": "sho'ng'imoq", "example": "She learned to dive from the high platform."},
+            {"word": "lift", "translation": "ko'tarmoq", "example": "He can lift heavy weights at the gym."},
+            {"word": "skate", "translation": "uchmoq", "example": "Children love to skate on the ice rink."},
+            {"word": "climb", "translation": "chiqmoq", "example": "They plan to climb the mountain next weekend."}
+          ]
+        },
+        {
+          "title": "Sports Challenge Story",
+          "order": 5,
+          "type": "story",
+          "content": "A story about sports and competition",
+          "story": {
+            "title": "Sports Challenge Story",
+            "text": "Mark loves sports and trains every day. Today is the school sports competition where athletes compete. First, he runs in a race and jumps over the high bar. Then he dives into the pool to swim. His team plays basketball and he can catch, throw, and hit the ball well. They practice hard to win, but sometimes they lose too. Mark feels happy because exercise and sports are fun."
+          }
+        },
+        {
+          "title": "Sports Test",
+          "order": 6,
+          "type": "test",
+          "content": "Test your knowledge of sports words"
+        }
+      ]
+    },
+    {
+      "title": "Food & Emotions",
+      "order": 2,
+      "lessons": [
+        {
+          "title": "Food Words",
+          "order": 1,
+          "type": "word",
+          "content": "Learn about food descriptions",
+          "words": [
+            {"word": "spicy", "translation": "achchiq", "example": "This curry is too spicy for me to eat."},
+            {"word": "sweet", "translation": "shirin", "example": "The cake was perfectly sweet and delicious."},
+            {"word": "salty", "translation": "sho'r", "example": "The ocean water tastes very salty."},
+            {"word": "bitter", "translation": "achchiq-asal", "example": "Coffee can taste bitter without sugar."},
+            {"word": "delicious", "translation": "mazali", "example": "My grandmother's cooking is always delicious."},
+            {"word": "sour", "translation": "nordon", "example": "Lemons have a very sour taste."},
+            {"word": "creamy", "translation": "qaymoqli", "example": "This soup has a rich, creamy texture."},
+            {"word": "crunchy", "translation": "xirillagan", "example": "I love crunchy vegetables in my salad."},
+            {"word": "juicy", "translation": "suvli", "example": "The apple was fresh and juicy."},
+            {"word": "fresh", "translation": "yangi", "example": "We bought fresh bread from the bakery."},
+            {"word": "oily", "translation": "yog'li", "example": "This fried food is too oily for my taste."},
+            {"word": "dry", "translation": "quruq", "example": "The chicken was overcooked and dry."},
+            {"word": "tender", "translation": "yumshoq", "example": "The meat was cooked until tender."},
+            {"word": "roasted", "translation": "qovurilgan", "example": "We had roasted vegetables for dinner."},
+            {"word": "baked", "translation": "pishirilgan", "example": "She made a baked potato with cheese."},
+            {"word": "fried", "translation": "qovurilgan", "example": "Fried chicken is popular around the world."},
+            {"word": "grilled", "translation": "panjara ustida pishirilgan", "example": "Grilled fish is healthy and tasty."},
+            {"word": "smooth", "translation": "silliq", "example": "The chocolate mousse was smooth and rich."},
+            {"word": "savory", "translation": "sho'r-mazali", "example": "I prefer savory snacks over sweet ones."},
+            {"word": "cold", "translation": "sovuq", "example": "Ice cream is a cold dessert perfect for summer."}
+          ]
+        },
+        {
+          "title": "Restaurant Experience",
+          "order": 2,
+          "type": "story",
+          "content": "A story about dining out",
+          "story": {
+            "title": "Restaurant Experience",
+            "text": "Sarah goes to a new restaurant with her friends. The waiter brings spicy chicken that is grilled and very tender. She also tries salty crackers that are crunchy and fresh bread that is baked. The soup tastes sour but the creamy sauce is smooth and delicious. For dessert, they eat cold ice cream that is sweet, not bitter. The food is juicy, savory, and very tasty. Sarah loves trying different flavors!"
+          }
+        },
+        {
+          "title": "Food Test",
+          "order": 3,
+          "type": "test",
+          "content": "Test your knowledge of food words"
+        },
+        {
+          "title": "Emotions Words",
+          "order": 4,
+          "type": "word",
+          "content": "Learn about feelings and emotions",
+          "words": [
+            {"word": "happy", "translation": "baxtli", "example": "She felt happy when she received the good news."},
+            {"word": "sad", "translation": "g'amgin", "example": "He was sad when his pet went missing."},
+            {"word": "nervous", "translation": "asabiy", "example": "He was nervous before his first job interview."},
+            {"word": "excited", "translation": "hayajonli", "example": "The children were excited about their trip to the zoo."},
+            {"word": "anxious", "translation": "tashvishli", "example": "She felt anxious about the upcoming exam."},
+            {"word": "angry", "translation": "g'azablangan", "example": "The customer was angry about the poor service."},
+            {"word": "calm", "translation": "tinch", "example": "The meditation made her feel calm and relaxed."},
+            {"word": "surprised", "translation": "hayron", "example": "He was surprised by the unexpected gift."},
+            {"word": "bored", "translation": "zerikkan", "example": "The students looked bored during the long lecture."},
+            {"word": "tired", "translation": "charchagan", "example": "After the long hike, everyone felt tired."},
+            {"word": "relaxed", "translation": "dam olgan", "example": "She felt relaxed after the massage."},
+            {"word": "scared", "translation": "qo'rqgan", "example": "The child was scared of the thunderstorm."},
+            {"word": "proud", "translation": "faxrli", "example": "Her parents were proud of her achievements."},
+            {"word": "jealous", "translation": "hasadli", "example": "He felt jealous of his friend's success."},
+            {"word": "lonely", "translation": "yolg'iz", "example": "Moving to a new city made her feel lonely."},
+            {"word": "confident", "translation": "ishonchli", "example": "She felt confident about her presentation."},
+            {"word": "shy", "translation": "uyatchan", "example": "The shy student rarely spoke in class."},
+            {"word": "hopeful", "translation": "umidli", "example": "Despite the challenges, she remained hopeful."},
+            {"word": "grateful", "translation": "minnatdor", "example": "He was grateful for all the help he received."},
+            {"word": "curious", "translation": "qiziq", "example": "The curious cat explored every corner of the house."}
+          ]
+        },
+        {
+          "title": "Emotional Journey",
+          "order": 5,
+          "type": "story",
+          "content": "A story about different emotions",
+          "story": {
+            "title": "Emotional Journey",
+            "text": "Today is Lisa's first day at a new school. She feels nervous and scared because she is shy. Lisa misses her old friends and feels sad and lonely. But her teacher is kind and the students are friendly. She meets Amy who is excited and curious about Lisa. By lunch time, Lisa feels more confident and happy. She is grateful for the kind people and not bored at all!"
+          }
+        },
+        {
+          "title": "Emotions Test",
+          "order": 6,
+          "type": "test",
+          "content": "Test your knowledge of emotions words"
+        }
+      ]
+    },
+    {
+      "title": "Home & Technology",
+      "order": 3,
+      "lessons": [
+        {
+          "title": "Home & Furniture Words",
+          "order": 1,
+          "type": "word",
+          "content": "Learn about home items",
+          "words": [
+            {"word": "chair", "translation": "stul", "example": "Please sit down on this comfortable chair."},
+            {"word": "sofa", "translation": "divan", "example": "The family gathered on the sofa to watch TV."},
+            {"word": "lamp", "translation": "chiroq", "example": "Turn on the lamp because it's getting dark."},
+            {"word": "carpet", "translation": "gilam", "example": "The beautiful carpet covers the entire living room floor."},
+            {"word": "pillow", "translation": "yostiq", "example": "She placed a soft pillow under her head."},
+            {"word": "bed", "translation": "karavot", "example": "The bed was comfortable and had clean sheets."},
+            {"word": "table", "translation": "stol", "example": "We set the table for dinner with plates and glasses."},
+            {"word": "mirror", "translation": "oyna", "example": "She looked at herself in the bathroom mirror."},
+            {"word": "curtain", "translation": "parda", "example": "The curtain blocked the bright sunlight."},
+            {"word": "shelf", "translation": "javon", "example": "Books were arranged neatly on the shelf."},
+            {"word": "drawer", "translation": "tortma", "example": "He kept his socks in the top drawer."},
+            {"word": "desk", "translation": "ish stoli", "example": "The student did homework at her desk."},
+            {"word": "clock", "translation": "soat", "example": "The clock on the wall showed 3 o'clock."},
+            {"word": "door", "translation": "eshik", "example": "Please close the door when you leave."},
+            {"word": "window", "translation": "deraza", "example": "She opened the window to let fresh air in."},
+            {"word": "cupboard", "translation": "shkaf", "example": "Dishes are stored in the kitchen cupboard."},
+            {"word": "blanket", "translation": "adyol", "example": "The warm blanket kept her cozy all night."},
+            {"word": "wardrobe", "translation": "kiyim shkafi", "example": "All her clothes were organized in the wardrobe."},
+            {"word": "vase", "translation": "guldon", "example": "Beautiful flowers were arranged in the crystal vase."},
+            {"word": "rug", "translation": "kichik gilam", "example": "A colorful rug was placed by the front door."}
+          ]
+        },
+        {
+          "title": "Moving Day Story",
+          "order": 2,
+          "type": "story",
+          "content": "A story about setting up a new home",
+          "story": {
+            "title": "Moving Day Story",
+            "text": "Alex moves into his new apartment today. He puts his chair and sofa near the window with a lamp for reading. The soft carpet covers the floor and a small rug is by the door. In the bedroom, he makes the bed with a pillow and blanket. He hangs a mirror on the wall and puts his clothes in the wardrobe. The desk, shelf, and clock make the room complete. Alex feels happy in his new home!"
+          }
+        },
+        {
+          "title": "Home Test",
+          "order": 3,
+          "type": "test",
+          "content": "Test your knowledge of home words"
+        },
+        {
+          "title": "Technology Words",
+          "order": 4,
+          "type": "word",
+          "content": "Learn about modern technology",
+          "words": [
+            {"word": "computer", "translation": "kompyuter", "example": "I use my computer for work and entertainment."},
+            {"word": "phone", "translation": "telefon", "example": "My phone helps me stay connected with friends."},
+            {"word": "robot", "translation": "robot", "example": "The robot vacuum cleans the house automatically."},
+            {"word": "internet", "translation": "internet", "example": "The internet provides access to unlimited information."},
+            {"word": "code", "translation": "kod", "example": "Programmers write code to create software applications."},
+            {"word": "laptop", "translation": "noutbuk", "example": "She carries her laptop to work every day."},
+            {"word": "tablet", "translation": "planshet", "example": "The tablet is perfect for reading books and watching videos."},
+            {"word": "camera", "translation": "kamera", "example": "The camera takes high-quality photos and videos."},
+            {"word": "app", "translation": "ilova", "example": "There's an app for almost everything these days."},
+            {"word": "software", "translation": "dasturiy ta'minot", "example": "New software updates improve security and performance."},
+            {"word": "hardware", "translation": "apparat", "example": "Computer hardware includes the processor and memory."},
+            {"word": "screen", "translation": "ekran", "example": "The screen displays all the information clearly."},
+            {"word": "mouse", "translation": "sichqoncha", "example": "Use the mouse to click on icons and navigate."},
+            {"word": "keyboard", "translation": "klaviatura", "example": "She types quickly on the keyboard with all ten fingers."},
+            {"word": "battery", "translation": "batareya", "example": "The phone battery lasts all day with normal use."},
+            {"word": "network", "translation": "tarmoq", "example": "The office network connects all computers together."},
+            {"word": "website", "translation": "veb-sayt", "example": "The company's website has useful information for customers."},
+            {"word": "AI", "translation": "sun'iy intellekt", "example": "AI technology is becoming more advanced every year."},
+            {"word": "data", "translation": "ma'lumot", "example": "Important data should always be backed up regularly."},
+            {"word": "server", "translation": "server", "example": "The server stores and manages all the company's files."}
+          ]
+        },
+        {
+          "title": "Digital Life Story",
+          "order": 5,
+          "type": "story",
+          "content": "A story about technology in daily life",
+          "story": {
+            "title": "Digital Life Story",
+            "text": "Maya starts her day by checking her phone and computer for messages. She uses her laptop, tablet, and mouse to work on different software. The internet helps her find information and the camera is good for video calls. She downloads a new app and writes code for a website. The robot cleans her house while she works. Maya stores her data on a server and the AI helps her work faster. Technology makes her life much easier!"
+          }
+        },
+        {
+          "title": "Technology Test",
+          "order": 6,
+          "type": "test",
+          "content": "Test your knowledge of technology words"
+        }
+      ]
+    },
+    {
+      "title": "Transportation & School",
+      "order": 4,
+      "lessons": [
+        {
+          "title": "Transportation Words",
+          "order": 1,
+          "type": "word",
+          "content": "Learn about ways to travel",
+          "words": [
+            {"word": "car", "translation": "mashina", "example": "My family travels by car during vacations."},
+            {"word": "bus", "translation": "avtobus", "example": "The school bus picks up children every morning."},
+            {"word": "bicycle", "translation": "velosiped", "example": "Riding a bicycle is good exercise and environmentally friendly."},
+            {"word": "train", "translation": "poyezd", "example": "The train travels quickly between cities."},
+            {"word": "airplane", "translation": "samolyot", "example": "The airplane will take us to another country in just a few hours."},
+            {"word": "ship", "translation": "kema", "example": "The cruise ship sailed across the ocean."},
+            {"word": "taxi", "translation": "taksi", "example": "We called a taxi to get to the airport quickly."},
+            {"word": "motorcycle", "translation": "mototsikl", "example": "He rides his motorcycle to work every day."},
+            {"word": "truck", "translation": "yuk mashinasi", "example": "The delivery truck brought packages to our house."},
+            {"word": "subway", "translation": "metro", "example": "The subway is the fastest way to travel in the city."},
+            {"word": "scooter", "translation": "skuter", "example": "Electric scooters are popular for short trips around town."},
+            {"word": "boat", "translation": "qayiq", "example": "We rented a small boat to fish on the lake."},
+            {"word": "van", "translation": "furgon", "example": "The moving van carried all our furniture to the new house."},
+            {"word": "tram", "translation": "tramvay", "example": "The tram runs on tracks through the city center."},
+            {"word": "helicopter", "translation": "vertolyot", "example": "The helicopter rescued people from the mountain."},
+            {"word": "rocket", "translation": "raketa", "example": "The rocket launched successfully into space."},
+            {"word": "station", "translation": "stantsiya", "example": "We waited for the train at the busy station."},
+            {"word": "traffic", "translation": "transport oqimi", "example": "Heavy traffic made us late for the meeting."},
+            {"word": "road", "translation": "yo'l", "example": "The road through the mountains was scenic but winding."},
+            {"word": "bridge", "translation": "ko'prik", "example": "The bridge connects the two sides of the river."}
+          ]
+        },
+        {
+          "title": "Travel Adventure",
+          "order": 2,
+          "type": "story",
+          "content": "A story about different transportation methods",
+          "story": {
+            "title": "Travel Adventure",
+            "text": "Roberto loves to travel and uses many different types of transportation. He rides his bicycle, takes the bus and train to the city. Sometimes he calls a taxi or rides the subway when there is traffic. Roberto travels by airplane to far places and by ship across the ocean. He drives a car on the road and crosses bridges. Roberto even rides a motorcycle and scooter for fun. Every trip is an adventure!"
+          }
+        },
+        {
+          "title": "Transportation Test",
+          "order": 3,
+          "type": "test",
+          "content": "Test your knowledge of transportation words"
+        },
+        {
+          "title": "School & Education Words",
+          "order": 4,
+          "type": "word",
+          "content": "Learn about education and learning",
+          "words": [
+            {"word": "teacher", "translation": "o'qituvchi", "example": "Our teacher explains difficult concepts very clearly."},
+            {"word": "student", "translation": "talaba", "example": "Every student should come to class prepared to learn."},
+            {"word": "subject", "translation": "fan", "example": "Mathematics is her favorite subject in school."},
+            {"word": "homework", "translation": "uy vazifa", "example": "Students must complete their homework before class."},
+            {"word": "exam", "translation": "imtihon", "example": "Students are preparing hard for their final exam."},
+            {"word": "class", "translation": "sinf", "example": "The class starts at 9 AM sharp every morning."},
+            {"word": "book", "translation": "kitob", "example": "I borrowed an interesting book from the library."},
+            {"word": "lesson", "translation": "dars", "example": "Today's lesson covers grammar and vocabulary."},
+            {"word": "pencil", "translation": "qalam", "example": "Please bring a pencil and eraser to the test."},
+            {"word": "notebook", "translation": "daftar", "example": "Take notes in your notebook during the lecture."},
+            {"word": "uniform", "translation": "forma", "example": "All students must wear the school uniform."},
+            {"word": "blackboard", "translation": "doska", "example": "The teacher wrote the equation on the blackboard."},
+            {"word": "library", "translation": "kutubxona", "example": "The library has thousands of books and resources."},
+            {"word": "desk", "translation": "parta", "example": "Each student has their own desk and chair."},
+            {"word": "ruler", "translation": "chizg'ich", "example": "Use a ruler to draw straight lines in geometry."},
+            {"word": "backpack", "translation": "ryukzak", "example": "Her backpack was heavy with textbooks."},
+            {"word": "grade", "translation": "baho", "example": "She received the highest grade in the class."},
+            {"word": "schedule", "translation": "jadval", "example": "Check your schedule to see what class is next."},
+            {"word": "test", "translation": "test", "example": "The test will cover everything we learned this month."},
+            {"word": "classroom", "translation": "sinf xonasi", "example": "The classroom was bright and well-equipped for learning."}
+          ]
+        },
+        {
+          "title": "School Success Story",
+          "order": 5,
+          "type": "story",
+          "content": "A story about academic achievement",
+          "story": {
+            "title": "School Success Story",
+            "text": "Carmen is a good student who studies hard for her exam. Every day she sits at her desk in the library with her book and notebook. She uses a pencil to write and a ruler to draw. Her teacher helps the class and writes lessons on the blackboard. Carmen wears her uniform and carries her backpack to school. She does her homework and follows her schedule. When the test day comes, Carmen gets a very good grade!"
+          }
+        },
+        {
+          "title": "School Test",
+          "order": 6,
+          "type": "test",
+          "content": "Test your knowledge of school words"
+        }
+      ]
+    },
+    {
+      "title": "Places & Arts",
+      "order": 5,
+      "lessons": [
+        {
+          "title": "Places in Town Words",
+          "order": 1,
+          "type": "word",
+          "content": "Learn about important places in a city",
+          "words": [
+            {"word": "hospital", "translation": "kasalxona", "example": "The hospital provides excellent medical care for patients."},
+            {"word": "bank", "translation": "bank", "example": "She went to the bank to deposit her paycheck."},
+            {"word": "park", "translation": "bog'", "example": "Families enjoy picnics in the beautiful park."},
+            {"word": "museum", "translation": "muzey", "example": "The art museum displays beautiful paintings from famous artists."},
+            {"word": "restaurant", "translation": "restoran", "example": "We had dinner at a cozy Italian restaurant."},
+            {"word": "school", "translation": "maktab", "example": "Children walk to school every morning."},
+            {"word": "cinema", "translation": "kinoteatr", "example": "The new movie is playing at the cinema downtown."},
+            {"word": "library", "translation": "kutubxona", "example": "I spent the afternoon reading at the public library."},
+            {"word": "supermarket", "translation": "supermarket", "example": "We buy groceries at the supermarket every week."},
+            {"word": "post office", "translation": "pochta", "example": "She mailed the package at the post office."},
+            {"word": "police station", "translation": "politsiya bo'limi", "example": "The police station is located in the city center."},
+            {"word": "bakery", "translation": "novvoyxona", "example": "The bakery makes fresh bread every morning."},
+            {"word": "hotel", "translation": "mehmonxona", "example": "Tourists stay at the luxury hotel near the beach."},
+            {"word": "stadium", "translation": "stadion", "example": "The football game will be held at the large stadium."},
+            {"word": "theater", "translation": "teatr", "example": "The theater presents classic plays and modern dramas."},
+            {"word": "pharmacy", "translation": "dorixona", "example": "You can buy medicine at the pharmacy."},
+            {"word": "airport", "translation": "aeroport", "example": "International flights depart from the main airport."},
+            {"word": "zoo", "translation": "hayvonot bog'i", "example": "Children love seeing animals at the zoo."},
+            {"word": "mall", "translation": "savdo markazi", "example": "The shopping mall has many stores and restaurants."},
+            {"word": "factory", "translation": "zavod", "example": "The factory produces cars for export."}
+          ]
+        },
+        {
+          "title": "City Exploration",
+          "order": 2,
+          "type": "story",
+          "content": "A story about discovering city landmarks",
+          "story": {
+            "title": "City Exploration",
+            "text": "Jenny visits a new city and wants to see all the important places. She goes to the museum, library, and park first. Then she eats at a restaurant and buys bread at the bakery. Jenny visits the hospital, bank, and post office too. She sees the cinema, theater, and stadium. At the supermarket and pharmacy she buys things she needs. This city has many interesting places to explore!"
+          }
+        },
+        {
+          "title": "Places Test",
+          "order": 3,
+          "type": "test",
+          "content": "Test your knowledge of places words"
+        },
+        {
+          "title": "Music & Art Words",
+          "order": 4,
+          "type": "word",
+          "content": "Learn about creative arts",
+          "words": [
+            {"word": "guitar", "translation": "gitara", "example": "She plays beautiful melodies on her acoustic guitar."},
+            {"word": "painting", "translation": "rasm", "example": "The colorful painting brightened up the entire room."},
+            {"word": "song", "translation": "qo'shiq", "example": "The singer performed a beautiful song about love."},
+            {"word": "rhythm", "translation": "ritm", "example": "The drummer kept a steady rhythm throughout the performance."},
+            {"word": "sculpture", "translation": "haykal", "example": "The marble sculpture stood in the center of the square."},
+            {"word": "piano", "translation": "pianino", "example": "He learned to play piano when he was seven years old."},
+            {"word": "melody", "translation": "ohang", "example": "The melody was so beautiful that it brought tears to her eyes."},
+            {"word": "dance", "translation": "raqs", "example": "Traditional dance is an important part of our cultural heritage."},
+            {"word": "violin", "translation": "skripka", "example": "The violin solo was the highlight of the concert."},
+            {"word": "artist", "translation": "rassom", "example": "The young artist displayed her work in the gallery."},
+            {"word": "drawing", "translation": "chizma", "example": "His pencil drawing of the landscape was incredibly detailed."},
+            {"word": "concert", "translation": "konsert", "example": "The classical music concert was held in the grand hall."},
+            {"word": "gallery", "translation": "galereya", "example": "The art gallery featured works by local and international artists."},
+            {"word": "canvas", "translation": "kanva", "example": "The artist stretched the canvas before beginning to paint."},
+            {"word": "brush", "translation": "cho'tka", "example": "She cleaned her brush carefully after each color."},
+            {"word": "lyrics", "translation": "matn", "example": "The song's lyrics told a touching story about friendship."},
+            {"word": "drum", "translation": "baraban", "example": "The drum beat echoed throughout the stadium."},
+            {"word": "harmony", "translation": "uyg'unlik", "example": "The choir sang in perfect harmony."},
+            {"word": "stage", "translation": "sahna", "example": "The actors performed brilliantly on the theater stage."},
+            {"word": "performance", "translation": "ijro", "example": "The evening performance received a standing ovation."}
+          ]
+        },
+        {
+          "title": "Arts Festival",
+          "order": 5,
+          "type": "story",
+          "content": "A story about artistic expression and creativity",
+          "story": {
+            "title": "Arts Festival",
+            "text": "Today is the big arts festival in town. Musicians play guitar, piano, and violin on the stage. The melody and rhythm sound beautiful and people love to dance. Artists make paintings and drawings with their brush on canvas. Children write lyrics for songs and watch the performance. In the gallery there are many sculptures. Everyone enjoys the concert and music. Art brings people together and makes them happy!"
+          }
+        },
+        {
+          "title": "Arts Test",
+          "order": 6,
+          "type": "test",
+          "content": "Test your knowledge of arts words"
+        }
+      ]
+    }
+  ]
+}
