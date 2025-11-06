@@ -27,8 +27,20 @@ def create_admin_token(email: str) -> str:
     return jwt.encode(payload, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
-def verify_admin_token() -> str:
-    return "admin@example.com"
+def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
+    try:
+        payload = jwt.decode(credentials.credentials, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        email = payload.get("sub")
+        token_type = payload.get("type")
+        
+        if email != settings.SUPER_ADMIN_EMAIL or token_type != "admin":
+            raise HTTPException(status_code=403, detail="Invalid admin token")
+        
+        return email
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 
 def login_admin(login_data: AdminLogin) -> AdminToken:
