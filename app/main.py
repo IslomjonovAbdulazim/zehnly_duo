@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi import HTTPException
 import os
 import logging
-from .api import admin, students
+from .api import admin, students, analytics
 from .config import settings
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
@@ -114,6 +114,7 @@ async def serve_root_audio_no_cache(filename: str):
 # Include routers
 app.include_router(admin.router)
 app.include_router(students.router)
+app.include_router(analytics.router)
 
 
 @app.get("/")
